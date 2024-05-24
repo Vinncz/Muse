@@ -5,7 +5,7 @@ struct MusicPicker: UIViewControllerRepresentable {
     @Binding var pickerIsShown: Bool
     @Binding var pickerIsDone_SoShowConfirmation : Bool
     
-    func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
+    func makeUIViewController ( context: Context ) -> UIDocumentPickerViewController {
         let documentPicker = UIDocumentPickerViewController(
             forOpeningContentTypes: [
                 .mp3, 
@@ -20,11 +20,9 @@ struct MusicPicker: UIViewControllerRepresentable {
         return documentPicker
     }
     
-    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
+    func updateUIViewController ( _ uiViewController: UIDocumentPickerViewController, context: Context ) { }
     
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
+    func makeCoordinator ( ) -> Coordinator { Coordinator(self) }
     
     class Coordinator: NSObject, UIDocumentPickerDelegate {
         var parent: MusicPicker
@@ -33,7 +31,7 @@ struct MusicPicker: UIViewControllerRepresentable {
             self.parent = parent
         }
         
-        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        func documentPicker ( _ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL] ) {
             parent.selectedFiles = urls.compactMap { url in
                 guard url.startAccessingSecurityScopedResource() else { return nil }
                 defer { 

@@ -34,6 +34,9 @@
 		20211C652C00E65200623A4D /* UIConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C642C00E65200623A4D /* UIConfigs.swift */; };
 		20211C672C00E66500623A4D /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C662C00E66500623A4D /* Configs.swift */; };
 		20211C692C00E6A100623A4D /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C682C00E6A100623A4D /* Page.swift */; };
+		20211C752C01037500623A4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20211C742C01037400623A4D /* GoogleService-Info.plist */; };
+		20211C782C0107E700623A4D /* appcion.png in Resources */ = {isa = PBXBuildFile; fileRef = 20211C772C0107E700623A4D /* appcion.png */; };
+		20211C7B2C010ACE00623A4D /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 20211C7A2C010ACE00623A4D /* appicon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +103,16 @@
 		20211C702C00EA2000623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		20211C712C00EA2D00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		20211C722C00EB0B00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C742C01037400623A4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		20211C772C0107E700623A4D /* appcion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appcion.png; sourceTree = "<group>"; };
+		20211C7A2C010ACE00623A4D /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
+		20211C7C2C010C3F00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C7D2C01107C00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C7E2C01108D00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C7F2C0110A300623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C802C0110DA00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C812C01117900623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C822C0111C000623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +136,8 @@
 		20211C072C00DF9F00623A4D = {
 			isa = PBXGroup;
 			children = (
+				20211C7C2C010C3F00623A4D /* README.md */,
+				20211C742C01037400623A4D /* GoogleService-Info.plist */,
 				20211C122C00DF9F00623A4D /* Muse */,
 				20211C242C00DFA000623A4D /* Muse Watch App */,
 				20211C112C00DF9F00623A4D /* Products */,
@@ -141,11 +156,13 @@
 		20211C122C00DF9F00623A4D /* Muse */ = {
 			isa = PBXGroup;
 			children = (
+				20211C7D2C01107C00623A4D /* README.md */,
+				20211C192C00DFA000623A4D /* Preview Content */,
+				20211C762C0107C500623A4D /* Raws */,
 				20211C172C00DFA000623A4D /* Assets.xcassets */,
 				20211C152C00DF9F00623A4D /* ContentView.swift */,
 				20211C132C00DF9F00623A4D /* MuseApp.swift */,
 				20211C372C00E02900623A4D /* MuseRelease.entitlements */,
-				20211C192C00DFA000623A4D /* Preview Content */,
 				20211C3D2C00E4D400623A4D /* Extensions */,
 				20211C3C2C00E47A00623A4D /* Strings */,
 				20211C3B2C00E47300623A4D /* Configs */,
@@ -166,6 +183,8 @@
 		20211C242C00DFA000623A4D /* Muse Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				20211C7E2C01108D00623A4D /* README.md */,
+				20211C792C010AB500623A4D /* Raws */,
 				20211C382C00E03100623A4D /* Muse Watch AppRelease.entitlements */,
 				20211C252C00DFA000623A4D /* MuseApp.swift */,
 				20211C272C00DFA000623A4D /* ContentView.swift */,
@@ -186,6 +205,7 @@
 		20211C392C00E46800623A4D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				20211C822C0111C000623A4D /* README.md */,
 				20211C412C00E4F400623A4D /* Components */,
 				20211C402C00E4EC00623A4D /* Representators */,
 				20211C3F2C00E4E500623A4D /* Presenters */,
@@ -219,6 +239,7 @@
 		20211C3C2C00E47A00623A4D /* Strings */ = {
 			isa = PBXGroup;
 			children = (
+				20211C812C01117900623A4D /* README.md */,
 				20211C562C00E5DC00623A4D /* SectionHeader.swift */,
 			);
 			path = Strings;
@@ -227,6 +248,7 @@
 		20211C3D2C00E4D400623A4D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				20211C802C0110DA00623A4D /* README.md */,
 				20211C602C00E63500623A4D /* View.swift */,
 				20211C622C00E64300623A4D /* Bundle.swift */,
 			);
@@ -299,6 +321,23 @@
 				20211C542C00E5C100623A4D /* Logger.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		20211C762C0107C500623A4D /* Raws */ = {
+			isa = PBXGroup;
+			children = (
+				20211C7F2C0110A300623A4D /* README.md */,
+				20211C772C0107E700623A4D /* appcion.png */,
+			);
+			path = Raws;
+			sourceTree = "<group>";
+		};
+		20211C792C010AB500623A4D /* Raws */ = {
+			isa = PBXGroup;
+			children = (
+				20211C7A2C010ACE00623A4D /* appicon.png */,
+			);
+			path = Raws;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,6 +423,8 @@
 			files = (
 				20211C1B2C00DFA000623A4D /* Preview Assets.xcassets in Resources */,
 				20211C182C00DFA000623A4D /* Assets.xcassets in Resources */,
+				20211C752C01037500623A4D /* GoogleService-Info.plist in Resources */,
+				20211C782C0107E700623A4D /* appcion.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +433,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20211C2D2C00DFA100623A4D /* Preview Assets.xcassets in Resources */,
+				20211C7B2C010ACE00623A4D /* appicon.png in Resources */,
 				20211C2A2C00DFA100623A4D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
