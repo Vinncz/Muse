@@ -16,6 +16,24 @@
 		20211C282C00DFA000623A4D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C272C00DFA000623A4D /* ContentView.swift */; };
 		20211C2A2C00DFA100623A4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20211C292C00DFA100623A4D /* Assets.xcassets */; };
 		20211C2D2C00DFA100623A4D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20211C2C2C00DFA100623A4D /* Preview Assets.xcassets */; };
+		20211C452C00E52B00623A4D /* MusicPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C442C00E52B00623A4D /* MusicPicker.swift */; };
+		20211C472C00E54A00623A4D /* MediaPlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C462C00E54A00623A4D /* MediaPlayback.swift */; };
+		20211C492C00E55600623A4D /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C482C00E55600623A4D /* Library.swift */; };
+		20211C4B2C00E56B00623A4D /* MusicEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C4A2C00E56B00623A4D /* MusicEntry.swift */; };
+		20211C4D2C00E58200623A4D /* ImportMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C4C2C00E58200623A4D /* ImportMusic.swift */; };
+		20211C502C00E59400623A4D /* ArtworkSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C4F2C00E59400623A4D /* ArtworkSquare.swift */; };
+		20211C522C00E5AA00623A4D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C512C00E5AA00623A4D /* AudioPlayer.swift */; };
+		20211C552C00E5C100623A4D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C542C00E5C100623A4D /* Logger.swift */; };
+		20211C572C00E5DC00623A4D /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C562C00E5DC00623A4D /* SectionHeader.swift */; };
+		20211C592C00E5F300623A4D /* MusicFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C582C00E5F300623A4D /* MusicFile.swift */; };
+		20211C5B2C00E60200623A4D /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C5A2C00E60200623A4D /* Music.swift */; };
+		20211C5D2C00E60E00623A4D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C5C2C00E60E00623A4D /* Item.swift */; };
+		20211C5F2C00E62200623A4D /* Attempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C5E2C00E62200623A4D /* Attempt.swift */; };
+		20211C612C00E63500623A4D /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C602C00E63500623A4D /* View.swift */; };
+		20211C632C00E64300623A4D /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C622C00E64300623A4D /* Bundle.swift */; };
+		20211C652C00E65200623A4D /* UIConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C642C00E65200623A4D /* UIConfigs.swift */; };
+		20211C672C00E66500623A4D /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C662C00E66500623A4D /* Configs.swift */; };
+		20211C692C00E6A100623A4D /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C682C00E6A100623A4D /* Page.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +71,35 @@
 		20211C272C00DFA000623A4D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		20211C292C00DFA100623A4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20211C2C2C00DFA100623A4D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		20211C372C00E02900623A4D /* MuseRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MuseRelease.entitlements; sourceTree = "<group>"; };
+		20211C382C00E03100623A4D /* Muse Watch AppRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Muse Watch AppRelease.entitlements"; sourceTree = "<group>"; };
+		20211C442C00E52B00623A4D /* MusicPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPicker.swift; sourceTree = "<group>"; };
+		20211C462C00E54A00623A4D /* MediaPlayback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayback.swift; sourceTree = "<group>"; };
+		20211C482C00E55600623A4D /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		20211C4A2C00E56B00623A4D /* MusicEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicEntry.swift; sourceTree = "<group>"; };
+		20211C4C2C00E58200623A4D /* ImportMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportMusic.swift; sourceTree = "<group>"; };
+		20211C4F2C00E59400623A4D /* ArtworkSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkSquare.swift; sourceTree = "<group>"; };
+		20211C512C00E5AA00623A4D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		20211C542C00E5C100623A4D /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		20211C562C00E5DC00623A4D /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
+		20211C582C00E5F300623A4D /* MusicFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicFile.swift; sourceTree = "<group>"; };
+		20211C5A2C00E60200623A4D /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
+		20211C5C2C00E60E00623A4D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		20211C5E2C00E62200623A4D /* Attempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attempt.swift; sourceTree = "<group>"; };
+		20211C602C00E63500623A4D /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		20211C622C00E64300623A4D /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		20211C642C00E65200623A4D /* UIConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConfigs.swift; sourceTree = "<group>"; };
+		20211C662C00E66500623A4D /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
+		20211C682C00E6A100623A4D /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		20211C6A2C00E9B200623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C6B2C00E9C400623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C6C2C00E9DF00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C6D2C00E9F500623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C6E2C00EA0000623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C6F2C00EA1200623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C702C00EA2000623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C712C00EA2D00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211C722C00EB0B00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +141,16 @@
 		20211C122C00DF9F00623A4D /* Muse */ = {
 			isa = PBXGroup;
 			children = (
-				20211C132C00DF9F00623A4D /* MuseApp.swift */,
-				20211C152C00DF9F00623A4D /* ContentView.swift */,
 				20211C172C00DFA000623A4D /* Assets.xcassets */,
+				20211C152C00DF9F00623A4D /* ContentView.swift */,
+				20211C132C00DF9F00623A4D /* MuseApp.swift */,
+				20211C372C00E02900623A4D /* MuseRelease.entitlements */,
 				20211C192C00DFA000623A4D /* Preview Content */,
+				20211C3D2C00E4D400623A4D /* Extensions */,
+				20211C3C2C00E47A00623A4D /* Strings */,
+				20211C3B2C00E47300623A4D /* Configs */,
+				20211C3A2C00E46D00623A4D /* Models */,
+				20211C392C00E46800623A4D /* Views */,
 			);
 			path = Muse;
 			sourceTree = "<group>";
@@ -113,6 +166,7 @@
 		20211C242C00DFA000623A4D /* Muse Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				20211C382C00E03100623A4D /* Muse Watch AppRelease.entitlements */,
 				20211C252C00DFA000623A4D /* MuseApp.swift */,
 				20211C272C00DFA000623A4D /* ContentView.swift */,
 				20211C292C00DFA100623A4D /* Assets.xcassets */,
@@ -127,6 +181,124 @@
 				20211C2C2C00DFA100623A4D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		20211C392C00E46800623A4D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				20211C412C00E4F400623A4D /* Components */,
+				20211C402C00E4EC00623A4D /* Representators */,
+				20211C3F2C00E4E500623A4D /* Presenters */,
+				20211C3E2C00E4DF00623A4D /* Dependencies */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		20211C3A2C00E46D00623A4D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				20211C6B2C00E9C400623A4D /* README.md */,
+				20211C582C00E5F300623A4D /* MusicFile.swift */,
+				20211C5A2C00E60200623A4D /* Music.swift */,
+				20211C5C2C00E60E00623A4D /* Item.swift */,
+				20211C5E2C00E62200623A4D /* Attempt.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		20211C3B2C00E47300623A4D /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				20211C6A2C00E9B200623A4D /* README.md */,
+				20211C642C00E65200623A4D /* UIConfigs.swift */,
+				20211C662C00E66500623A4D /* Configs.swift */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
+		20211C3C2C00E47A00623A4D /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				20211C562C00E5DC00623A4D /* SectionHeader.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		20211C3D2C00E4D400623A4D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				20211C602C00E63500623A4D /* View.swift */,
+				20211C622C00E64300623A4D /* Bundle.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		20211C3E2C00E4DF00623A4D /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				20211C6F2C00EA1200623A4D /* README.md */,
+				20211C682C00E6A100623A4D /* Page.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		20211C3F2C00E4E500623A4D /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				20211C702C00EA2000623A4D /* README.md */,
+				20211C462C00E54A00623A4D /* MediaPlayback.swift */,
+				20211C482C00E55600623A4D /* Library.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		20211C402C00E4EC00623A4D /* Representators */ = {
+			isa = PBXGroup;
+			children = (
+				20211C712C00EA2D00623A4D /* README.md */,
+				20211C442C00E52B00623A4D /* MusicPicker.swift */,
+			);
+			path = Representators;
+			sourceTree = "<group>";
+		};
+		20211C412C00E4F400623A4D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				20211C6C2C00E9DF00623A4D /* README.md */,
+				20211C532C00E5B900623A4D /* Helpers */,
+				20211C432C00E50500623A4D /* Logical */,
+				20211C422C00E50100623A4D /* Presentable */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		20211C422C00E50100623A4D /* Presentable */ = {
+			isa = PBXGroup;
+			children = (
+				20211C6E2C00EA0000623A4D /* README.md */,
+				20211C4A2C00E56B00623A4D /* MusicEntry.swift */,
+				20211C4C2C00E58200623A4D /* ImportMusic.swift */,
+				20211C4F2C00E59400623A4D /* ArtworkSquare.swift */,
+			);
+			path = Presentable;
+			sourceTree = "<group>";
+		};
+		20211C432C00E50500623A4D /* Logical */ = {
+			isa = PBXGroup;
+			children = (
+				20211C6D2C00E9F500623A4D /* README.md */,
+				20211C512C00E5AA00623A4D /* AudioPlayer.swift */,
+			);
+			path = Logical;
+			sourceTree = "<group>";
+		};
+		20211C532C00E5B900623A4D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				20211C722C00EB0B00623A4D /* README.md */,
+				20211C542C00E5C100623A4D /* Logger.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,8 +403,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20211C612C00E63500623A4D /* View.swift in Sources */,
+				20211C5F2C00E62200623A4D /* Attempt.swift in Sources */,
 				20211C162C00DF9F00623A4D /* ContentView.swift in Sources */,
+				20211C5B2C00E60200623A4D /* Music.swift in Sources */,
+				20211C502C00E59400623A4D /* ArtworkSquare.swift in Sources */,
+				20211C522C00E5AA00623A4D /* AudioPlayer.swift in Sources */,
+				20211C5D2C00E60E00623A4D /* Item.swift in Sources */,
+				20211C592C00E5F300623A4D /* MusicFile.swift in Sources */,
+				20211C472C00E54A00623A4D /* MediaPlayback.swift in Sources */,
+				20211C4D2C00E58200623A4D /* ImportMusic.swift in Sources */,
+				20211C552C00E5C100623A4D /* Logger.swift in Sources */,
+				20211C492C00E55600623A4D /* Library.swift in Sources */,
+				20211C452C00E52B00623A4D /* MusicPicker.swift in Sources */,
+				20211C632C00E64300623A4D /* Bundle.swift in Sources */,
+				20211C692C00E6A100623A4D /* Page.swift in Sources */,
+				20211C572C00E5DC00623A4D /* SectionHeader.swift in Sources */,
+				20211C652C00E65200623A4D /* UIConfigs.swift in Sources */,
+				20211C4B2C00E56B00623A4D /* MusicEntry.swift in Sources */,
 				20211C142C00DF9F00623A4D /* MuseApp.swift in Sources */,
+				20211C672C00E66500623A4D /* Configs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +595,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Muse Watch App/Muse Watch AppRelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Muse Watch App/Preview Content\"";
@@ -444,6 +635,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Muse;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Muse needs access to Health";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Muse needs access to Health";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Muse needs access to Health";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -470,6 +664,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Muse/MuseRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Muse/Preview Content\"";
@@ -477,6 +672,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Muse;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Muse needs access to Health";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Muse needs access to Health";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Muse needs access to Health";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

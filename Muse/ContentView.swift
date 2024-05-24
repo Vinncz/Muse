@@ -1,24 +1,61 @@
-//
-//  ContentView.swift
-//  Muse
-//
-//  Created by Vin on 24/05/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+    
+    init ( ) {
+        activePage = presentablePages.first
     }
+    
+    var body : some View {
+        NavigationSplitView {
+            List ( presentablePages, selection: $activePage ) { page in
+                NavigationLink ( value: page ) { 
+                    Label( page.name, systemImage: page.icon )
+                }
+            }
+                .navigationDestination( for: Page.self, destination: { page in
+                    NavigationStack {
+                        ScrollView ( .vertical ) {
+                            page.view
+                        }
+                    }
+                })
+                .navigationTitle(Bundle.main.appName! as String)
+                .navigationBarTitleDisplayMode(.large)
+            
+        } detail: {
+            NavigationStack {
+                ScrollView ( .vertical ) {
+                    activePage?.view
+                }
+            }  
+            
+        }
+            .onAppear {
+                    activePage = presentablePages.first
+                }
+    }
+    
+    /* Mutating variables that are used by this page for various purposes */
+    @State private var activePage: Page? = nil
+    
+    /* Constants that are used by this page for various purposes */
+    let presentablePages : [ Page ] = [
+        Page (
+            name: "Library", 
+            icon: "books.vertical", 
+            view: Library() 
+        ),
+        Page ( 
+            name: "InitView", 
+            icon: "number", 
+            view: initView() 
+        )
+    ]
+    
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: Item.self, inMemory: true)
 }
