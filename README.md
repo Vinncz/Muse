@@ -3,8 +3,6 @@
     <img src="./Muse Watch App/Assets.xcassets/AppIcon.appiconset/appicon.png" alt="Muse WatchOS Logo" style="max-width: 128px; border-radius: 14px;" />
 </div>
 
-ㅤ
-
 # Muse
 
 Muse reinvents how everyone burn their calories -- by playing musical instrument, instead of exercising.
