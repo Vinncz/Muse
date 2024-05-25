@@ -24,9 +24,9 @@ struct MusicEntry: View {
 /// Description for the entry; which is smaller than `title`. It is the bottom-most element inside a `MusicEntry`.
     let desc               : String
 /// Responsible for text wrapping; if you set this to infinity, any text passed into either `title` or `desc` will be shown in its full length.
-    var width              : Double = UIConfigs.SquareSizes.huge
+    var width              : Double = UIConfig.SquareSizes.huge
 /// Responsible for the spacing between `title` and `desc`.
-    var spacing            : Double = UIConfigs.Spacings.normal
+    var spacing            : Double = UIConfig.Spacings.normal
 /// Alignment for the `VStack` which wraps your `artwork`, `title`, and `desc`. It is NOT responsible for text alignment.
     var alignment          : HorizontalAlignment = .leading
 /// Alignment of the text for your `title`, and `desc`. It is NOT responsible for `VStack` alignment.
@@ -66,13 +66,13 @@ struct MusicEntry: View {
         artwork   : AnyView(
             ArtworkSquare( 
                 Image(systemName: "music.note")
-                ,size: UIConfigs.SquareSizes.giant
+                ,size: UIConfig.SquareSizes.giant
                 ,font: .largeTitle
             )
         ), 
         title     : "Import music", 
         desc      : "After importing, Muse will be able to play them",
-        width     : UIConfigs.SquareSizes.giant,
+        width     : UIConfig.SquareSizes.giant,
         alignment : .center,
         multiLineAlignment: .center,
         titleFont : .title,

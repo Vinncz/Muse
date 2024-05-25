@@ -38,13 +38,13 @@ struct MediaPlayback: View {
                     artwork : AnyView( 
                         ArtworkSquare( 
                             Image(systemName: "music.note")
-                            ,size: UIConfigs.SquareSizes.giant
+                            ,size: UIConfig.SquareSizes.giant
                             ,font: .largeTitle
                         ) 
                     ), 
                     title              : music.title, 
                     desc               : music.artists,
-                    width              : UIConfigs.SquareSizes.giant + UIConfigs.Spacings.huge * 2,
+                    width              : UIConfig.SquareSizes.giant + UIConfig.Spacings.huge * 2,
                     alignment          : .center,
                     multiLineAlignment : .center,
                     titleFont          : .title,
@@ -74,7 +74,7 @@ struct MediaPlayback: View {
             Spacer()
         }
         .frame (
-            maxWidth: UIConfigs.SidebarSizes.huge
+            maxWidth: UIConfig.SidebarSizes.huge
         )
         .background( Color(.systemGray5) )
     }
@@ -85,7 +85,7 @@ extension MediaPlayback {
     var PlaybackControlGroup : some View {
         VStack {
             PlaybackSeekbar
-            HStack ( spacing: UIConfigs.Spacings.huge * 2 ) {
+            HStack ( spacing: UIConfig.Spacings.huge * 2 ) {
                 WatchConnectivityButton
                 PlayPauseButton
                 PlaybackSpeedDial
@@ -119,7 +119,7 @@ extension MediaPlayback {
             } label: {
                 Image (
                     systemName:  systemIcon
-                ).font(.system(size: UIConfigs.FontSizes.huge, weight: .ultraLight))
+                ).font(.system(size: UIConfig.FontSizes.huge, weight: .ultraLight))
             }
     }
     
@@ -135,7 +135,7 @@ extension MediaPlayback {
                 Text("2.0x").tag(Float(2.0))
             }
         } label: {
-            VStack ( spacing: UIConfigs.Spacings.mini) {
+            VStack ( spacing: UIConfig.Spacings.mini) {
                 Image( systemName: "timer.circle" )
                     .font(.title)
                 Text("\(audioPlayer.playbackSpeed, specifier: "%.1fx")")
@@ -151,7 +151,7 @@ extension MediaPlayback {
         } label: {
             Image (
                 systemName: "checkmark.applewatch"
-            ).font(.system(size: UIConfigs.FontSizes.mini, weight: .regular))
+            ).font(.system(size: UIConfig.FontSizes.mini, weight: .regular))
         }
     }
     
@@ -163,7 +163,7 @@ extension MediaPlayback {
                 audioPlayer.seek( to: audioPlayer.seekTime )
             }
         )
-        .frame( maxWidth: UIConfigs.SquareSizes.giant * 2 )
+        .frame( maxWidth: UIConfig.SquareSizes.giant * 2 )
     }
 }
 

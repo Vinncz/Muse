@@ -42,7 +42,7 @@ import Observation
     
     init ( bookmark: Data ) {      
         AudioPlayer.numberOfTimesCalled += 1
-        Logger.log("AudioPlayer was called: \(AudioPlayer.numberOfTimesCalled)")
+        LocalLogger.log("AudioPlayer was called: \(AudioPlayer.numberOfTimesCalled)")
         
         self.bookmark = bookmark
         self.playerDelegate.didFinishPlaying = { [ weak self ] in
@@ -66,22 +66,22 @@ import Observation
                 let access = url.startAccessingSecurityScopedResource()
                 
                 if ( access ) {
-                    Logger.log("Acess was granted")
+                    LocalLogger.log("Acess was granted")
                     self.audioPlayer = try AVAudioPlayer( contentsOf: url )
                     self.audioPlayer?.delegate = playerDelegate
                     
                 } else {
-                    Logger.log("Acess was NOT granted")
+                    LocalLogger.log("Acess was NOT granted")
                     
                 }
                 
             } else {
-                Logger.log("URL was empty")
+                LocalLogger.log("URL was empty")
                 
             }
             
         } catch {
-            Logger.log("Failed to initialize AVAudioPlayer, due to \(error)")
+            LocalLogger.log("Failed to initialize AVAudioPlayer, due to \(error)")
             
         }
         

@@ -12,7 +12,7 @@ struct Library: View {
             PreviouslyPlayed
             Spacer()
         }
-            .padding(.horizontal, UIConfigs.Paddings.mini)
+            .padding(.horizontal, UIConfig.Paddings.mini)
     }
     
     

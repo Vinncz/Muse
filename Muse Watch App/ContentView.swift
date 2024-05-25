@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Muse Watch App
-//
-//  Created by Vin on 24/05/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {

@@ -80,7 +80,7 @@ struct ImportMusic: View {
                     Text("Do you wish to import")
                         .font( .largeTitle )
                         .bold()
-                        .padding( UIConfigs.Paddings.normal )
+                        .padding( UIConfig.Paddings.normal )
                         .padding( .top, 32 )
                     ListOfSelectedFiles
                     Spacer()
@@ -94,17 +94,17 @@ struct ImportMusic: View {
         var ListOfSelectedFiles : some View {
             HStack {
                 ScrollView {
-                    VStack ( alignment: .leading, spacing: UIConfigs.Spacings.normal ) {
+                    VStack ( alignment: .leading, spacing: UIConfig.Spacings.normal ) {
                         ForEach ( selectedFiles ) { file in
-                            HStack ( spacing: UIConfigs.CornerRadiuses.normal ) {
+                            HStack ( spacing: UIConfig.CornerRadiuses.normal ) {
                                 Image(systemName: "music.note")
                                     .padding()
                                 Text( "\(file.title), \(file.artists)" )
                                 Spacer()
                             }
-                                .padding( .all, UIConfigs.Paddings.mini )
+                                .padding( .all, UIConfig.Paddings.mini )
                                 .background( Color(.systemGray5) )
-                                .clipShape(RoundedRectangle(cornerRadius: UIConfigs.CornerRadiuses.micro))
+                                .clipShape(RoundedRectangle(cornerRadius: UIConfig.CornerRadiuses.micro))
                         }
                         Spacer()
                     }
@@ -116,7 +116,7 @@ struct ImportMusic: View {
         var ConfirmationArea : some View {
             HStack {
                 Spacer()
-                VStack ( spacing: UIConfigs.Spacings.huge - UIConfigs.Spacings.mini ) {
+                VStack ( spacing: UIConfig.Spacings.huge - UIConfig.Spacings.mini ) {
                     ConfirmationButton
                     CancelButton
                 }
@@ -132,7 +132,7 @@ struct ImportMusic: View {
             } label: {
                 Spacer()
                 Text("Yes, import")
-                    .padding(.all, UIConfigs.Paddings.normal)
+                    .padding(.all, UIConfig.Paddings.normal)
                 Spacer()
             }
                 .bold()
@@ -145,7 +145,7 @@ struct ImportMusic: View {
             } label: {
                 Spacer()
                 Text("No, I did an oopsie")
-                    .padding(.all, UIConfigs.Paddings.mini)
+                    .padding(.all, UIConfig.Paddings.mini)
                 Spacer()
             }
                 .bold()

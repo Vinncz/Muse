@@ -1,9 +1,9 @@
 import Foundation
 
-class Logger {
+class LocalLogger {
     
     static func log ( _ arg : Any ) {
-        guard ( Configs.debug == true ) else { return }
+        guard ( AppConfig.debug == true ) else { return }
         
         print(arg)
     } 

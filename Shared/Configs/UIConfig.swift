@@ -9,7 +9,7 @@ protocol Sizable {
     static var huge   : Double { get set }
 }
 
-struct UIConfigs {
+struct UIConfig {
     
     struct FontSizes : Sizable {
         /** Represents 16px on screen */

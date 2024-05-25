@@ -49,7 +49,7 @@ struct MusicPicker: UIViewControllerRepresentable {
                     do {
                         bookmarkObject = try url.bookmarkData()
                     } catch let error {
-                        Logger.log("Failed to create bookmark: \(error)")
+                        LocalLogger.log("Failed to create bookmark: \(error)")
                         return nil
                     }
                     

@@ -36,7 +36,7 @@ struct ContentView: View {
                 }
     }
     
-    /* Mutating variables that are used by this page for various purposes */
+    /* Mutating variables which are used by this page for various purposes */
     @State private var activePage: Page? = nil
     
     /* Constants that are used by this page for various purposes */
