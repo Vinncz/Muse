@@ -5,22 +5,19 @@ struct AuthorizeButton : View {
     @State var authenticated = false
     @State var sheetShown    = false
     
-    let allTypes: Set = [
-        HKQuantityType.workoutType(),
-        HKQuantityType(.activeEnergyBurned),
-        HKQuantityType(.heartRate)
-    ]
-    
-    let healthStore = HKHealthStore()
-    
     var body : some View {
         Button {
             sheetShown.toggle()
         } label: {
             Image(systemName: "checkmark.circle.badge.questionmark")
         }
-        .healthDataAccessRequest(store: healthStore, shareTypes: allTypes, readTypes: allTypes, trigger: sheetShown) { result in
-            LocalLogger.log(result)
+        .healthDataAccessRequest ( 
+            store      : AppValueProvider.healthStore, 
+            shareTypes : AppConfig.healthKitShareTypes, 
+            readTypes  : AppConfig.healthKitReadTypes, 
+            trigger    : sheetShown 
+        ) { result in
+            debug("\(result)")
             
             switch result {
                 case .success(let a):

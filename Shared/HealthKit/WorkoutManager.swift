@@ -1,256 +1,115 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-A class that wraps the data and operations related to workout.
-*/
+// Copyright © 2023 Apple Inc.
+// Copyright © 2024 Kevin Gunawan
+// This file partly contains copyrighted (MIT Licensed) works of Apple Inc.
 
 import Foundation
-import os
 import HealthKit
+import Observation
+import os
 
-@MainActor
-class WorkoutManager: NSObject, ObservableObject {
-    struct SessionSateChange {
-        let newState: HKWorkoutSessionState
-        let date: Date
-    }
-    /**
-     The workout session live states that the UI observes.
-     */
-    @Published var sessionState: HKWorkoutSessionState = .notStarted
-    @Published var heartRate: Double = 0
-    @Published var activeEnergy: Double = 0
-    @Published var speed: Double = 0
-    @Published var power: Double = 0
-    @Published var cadence: Double = 0
-    @Published var distance: Double = 0
-    @Published var water: Double = 0
-    @Published var elapsedTimeInterval: TimeInterval = 0
-    /**
-     SummaryView (watchOS) changes from Saving Workout to the metric summary view when
-     a workout changes from nil to a valid value.
-     */
-    @Published var workout: HKWorkout?
-    /**
-     HealthKit data types to share and read.
-     */
-    let typesToShare: Set = [HKQuantityType.workoutType(),
-                             HKQuantityType(.dietaryWater)]
-    let typesToRead: Set = [
-        HKQuantityType(.heartRate),
-        HKQuantityType(.activeEnergyBurned),
-        HKQuantityType(.distanceWalkingRunning),
-        HKQuantityType(.cyclingSpeed),
-        HKQuantityType(.cyclingPower),
-        HKQuantityType(.cyclingCadence),
-        HKQuantityType(.distanceCycling),
-        HKQuantityType(.dietaryWater),
-        HKQuantityType.workoutType(),
-        HKObjectType.activitySummaryType()
-    ]
-    let healthStore = HKHealthStore()
-    var session: HKWorkoutSession?
-    #if os(watchOS)
-    /**
-     The live workout builder that is only available on watchOS.
-     */
-    var builder: HKLiveWorkoutBuilder?
-    #else
-    /**
-     A date for synchronizing the elapsed time between iOS and watchOS.
-     */
-    var contextDate: Date?
-    #endif
-    /**
-     Creates an async stream that buffers a single newest element, and the stream's continuation to yield new elements synchronously to the stream.
-     The Swift actors don't handle tasks in a first-in-first-out way. Use AsyncStream to make sure that the app presents the latest state.
-     */
-    let asynStreamTuple = AsyncStream.makeStream(of: SessionSateChange.self, bufferingPolicy: .bufferingNewest(1))
-    /**
-     WorkoutManager is a singleton.
-     */
-    static let shared = WorkoutManager()
+/* WorkoutManager's singleton helper */
+extension WorkoutManager {
+    private static let instance = WorkoutManager()
+    static func getInstance () -> WorkoutManager { return instance }
+}
+
+@MainActor @Observable class WorkoutManager: NSObject {
+
+    /*
+     Every initialization of WorkoutManager kicks off a Task; which consumes an asynchronous stream. 
     
-    /**
-     Kick off a task to consume the async stream. The next value in the stream can't start processing
-     until "await consumeSessionStateChange(value)" returns and the loop enters the next iteration, which serializes the asynchronous operations.
+     For the lack of a better term, a "Task" is like a to-do item for a program.
+     It represents a piece-of-code that needs to be done, which might take some time to complete, 
+         because it involves waiting for something else to happen (e.g. waiting for data returned from server).
+    
+     Similarly, picture a "Stream" to be like an airport's conveyor belt.
+     It "streams" those luggages (data) to you, as the workers put those luggages onto the stream (as the data is being created).
+     
+     The important thing about Tasks is that they can be asynchronous, meaning they can begin at some point; 
+         yet stop halfway and let [others] finish first; Because, they might wait for those [other jobs] to make an opening for itself to continue.
+    
+     Using await logic, the next value in the stream will not and cannot begin processing until "await consumeSessionStateChange(value)" returns 
+         and the loop enters the next iteration, which ensure that no data gets overlooked.
      */
-    private override init() {
+    private override init ( ) {
         super.init()
         Task {
             for await value in asynStreamTuple.stream {
-                await consumeSessionStateChange(value)
+                await handleTheChangeOfStateForASession(value)
             }
         }
     }
-    /**
-     Consume the session state change from the async stream to update sessionState and finish the workout.
-     */
-    private func consumeSessionStateChange(_ change: SessionSateChange) async {
-        sessionState = change.newState
-        /**
-          Wait for the session to transition states before ending the builder.
-         */
-        #if os(watchOS)
-        /**
-         Send the elapsed time to the iOS side.
-         */
-        let elapsedTimeInterval = session?.associatedWorkoutBuilder().elapsedTime(at: change.date) ?? 0
-        let elapsedTime = WorkoutElapsedTime(timeInterval: elapsedTimeInterval, date: change.date)
-        if let elapsedTimeData = try? JSONEncoder().encode(elapsedTime) {
-            await sendData(elapsedTimeData)
-        }
-
-        guard change.newState == .stopped, let builder else {
-            return
-        }
-
-        let finishedWorkout: HKWorkout?
-        do {
-            try await builder.endCollection(at: change.date)
-            finishedWorkout = try await builder.finishWorkout()
-            session?.end()
-        } catch {
-            Logger.shared.log("Failed to end workout: \(error))")
-            return
-        }
-        workout = finishedWorkout
-        #endif
-    }
-}
-
-// MARK: - Workout session management
-//
-extension WorkoutManager {
-    func resetWorkout() {
-        #if os(watchOS)
-        builder = nil
-        #endif
-        workout = nil
-        session = nil
-        activeEnergy = 0
-        heartRate = 0
-        distance = 0
-        water = 0
-        power = 0
-        cadence = 0
-        speed = 0
-        sessionState = .notStarted
-    }
     
-    func sendData(_ data: Data) async {
-        do {
-            try await session?.sendToRemoteWorkoutSession(data: data)
-        } catch {
-            Logger.shared.log("Failed to send data: \(error)")
-        }
-    }
-}
-
-// MARK: - Workout statistics
-//
-extension WorkoutManager {
-    func updateForStatistics(_ statistics: HKStatistics) {
-        switch statistics.quantityType {
-        case HKQuantityType.quantityType(forIdentifier: .heartRate):
-            let heartRateUnit = HKUnit.count().unitDivided(by: .minute())
-            heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
-            
-        case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
-            let energyUnit = HKUnit.kilocalorie()
-            activeEnergy = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
-            
-        case HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning),
-            HKQuantityType.quantityType(forIdentifier: .distanceCycling):
-            let meterUnit = HKUnit.meter()
-            distance = statistics.sumQuantity()?.doubleValue(for: meterUnit) ?? 0
-            
-        case HKQuantityType(.cyclingSpeed):
-            let speedUnit = HKUnit.mile().unitDivided(by: HKUnit.hour())
-            speed = statistics.mostRecentQuantity()?.doubleValue(for: speedUnit) ?? 0
-            
-        case HKQuantityType(.cyclingPower):
-            let powerUnit = HKUnit.watt()
-            power = statistics.mostRecentQuantity()?.doubleValue(for: powerUnit) ?? 0
-            
-        case HKQuantityType(.cyclingCadence):
-            let cadenceUnit = HKUnit.count().unitDivided(by: .minute())
-            cadence = statistics.mostRecentQuantity()?.doubleValue(for: cadenceUnit) ?? 0
-            
-        default:
-            return
-        }
-    }
-}
-
-// MARK: - HKWorkoutSessionDelegate
-// HealthKit calls the delegate methods on an anonymous serial background queue,
-// so the methods need to be nonisolated explicitly.
-//
-extension WorkoutManager: HKWorkoutSessionDelegate {
-    nonisolated func workoutSession(_ workoutSession: HKWorkoutSession,
-                                    didChangeTo toState: HKWorkoutSessionState,
-                                    from fromState: HKWorkoutSessionState,
-                                    date: Date) {
-        Logger.shared.log("Session state changed from \(fromState.rawValue) to \(toState.rawValue)")
-        /**
-         Yield the new state change to the async stream synchronously.
-         asynStreamTuple is a constant, so it's nonisolated.
-         */
-        let sessionSateChange = SessionSateChange(newState: toState, date: date)
-        asynStreamTuple.continuation.yield(sessionSateChange)
-    }
+    
+    /** The function which handles "what to do" when the state-of-the-workout did change */
+    private func handleTheChangeOfStateForASession ( _ change: SessionSateChange ) async {
+        self.sessionState = change.newState
         
-    nonisolated func workoutSession(_ workoutSession: HKWorkoutSession,
-                                    didFailWithError error: Error) {
-        Logger.shared.log("\(#function): \(error)")
+        /* If [Watchful Muse] is the one who initiates the change of state */
+        #if os(watchOS)
+            await prepareAndSendElapsedTime( change.effectiveDate )
+    
+            guard change.newState == .stopped, let builder else { return }
+            await handleWorkoutStoppage( change.effectiveDate )
+        #endif
     }
     
-    /**
-     HealthKit calls this method when it determines that the mirrored workout session is invalid.
-     */
-    nonisolated func workoutSession(_ workoutSession: HKWorkoutSession,
-                                    didDisconnectFromRemoteDeviceWithError error: Error?) {
-        Logger.shared.log("\(#function): \(error)")
-    }
     
-    /**
-     In iOS, the sample app can go into the background and become suspended.
-     When suspended, HealthKit gathers the data coming from the remote session.
-     When the app resumes, HealthKit sends an array containing all the data objects it has accumulated to this delegate method.
-     The data objects in the array appear in the order that the local system received them.
-     
-     On watchOS, the workout session keeps the app running even if it is in the background; however, the system can
-     temporarily suspend the app — for example, if the app uses an excessive amount of CPU in the background.
-     While suspended, HealthKit caches the incoming data objects and delivers an array of data objects when the app resumes, just like in the iOS app.
-     */
-    nonisolated func workoutSession(_ workoutSession: HKWorkoutSession,
-                                    didReceiveDataFromRemoteWorkoutSession data: [Data]) {
-        Logger.shared.log("\(#function): \(data.debugDescription)")
-        Task { @MainActor in
-            do {
-                for anElement in data {
-                    try handleReceivedData(anElement)
-                }
-            } catch {
-                Logger.shared.log("Failed to handle received data: \(error))")
-            }
-        }
+    /* Constants which are supplied by either AppValueProvider or AppConfig */
+    let healthStore        = AppValueProvider.healthStore    
+    let typesToShare : Set = AppConfig.healthKitShareTypes
+    let typesToRead  : Set = AppConfig.healthKitReadTypes
+ 
+    
+    /* The workout session's live-states, which the UI observes */
+    var elapsedTimeInterval : TimeInterval = 0
+    var sessionState        : HKWorkoutSessionState = .notStarted
+    var workoutValues       = MonitoredWorkoutValue()
+    
+    
+    /* Mutating variables which are used by WorkoutManager for various purposes */
+    var workout         : HKWorkout?
+    var session         : HKWorkoutSession?
+    let asynStreamTuple = AsyncStream.makeStream ( /* Creates an async stream of SessionStateChange object. Unlike first-in-first-out, the policy of `.bufferingNewest(limit)` disregards any old value, and only keep those the n-most recent value. */
+        of: SessionSateChange.self, 
+        bufferingPolicy: .bufferingNewest(1)
+    )
+    #if os(watchOS)
+        var builder     : HKLiveWorkoutBuilder?    /* The live-workout builder that is only available on watchOS. */ 
+    #else
+        var contextDate : Date?                    /* A date for synchronizing the elapsed time between iOS and watchOS. */
+    #endif
+    
+}
+
+@Observable class MonitoredWorkoutValue {
+    var heartRate          : Double = 0.0
+    var activeEnergyBurned : Double = 0.0
+    
+    func reset () -> Void {
+        self.heartRate          = 0
+        self.activeEnergyBurned = 0
     }
 }
 
-// MARK: - A structure for synchronizing the elapsed time.
-//
-struct WorkoutElapsedTime: Codable {
-    var timeInterval: TimeInterval
-    var date: Date
+struct WorkoutElapsedTime : Codable {
+    var timeInterval : TimeInterval
+    var date         : Date
 }
 
-// MARK: - Convenient workout state
-//
-extension HKWorkoutSessionState {
-    var isActive: Bool {
-        self != .notStarted && self != .ended
-    }
+struct SessionSateChange {
+    let newState      : HKWorkoutSessionState
+    let effectiveDate : Date
 }
+
+
+/* 
+ MARK: - Learning Corner
+ 
+ ## Non-isolated
+ The term "non-isolated" means that other functions besides this one can access and modify the same data at the same time. 
+ It's like saying "It's okay if other functions touch this data while I'm using it."
+ 
+ ## Yield
+ The term "yield" in context of "stream", means "I'm putting these data I'm holding onto the conveyor belt (stream), and they can take it away from here."
+*/

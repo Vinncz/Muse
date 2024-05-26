@@ -9,8 +9,21 @@ struct MediaPlayback: View {
     /* Parameters which are expected by this page */
     let music : Music
     
-    /* Mutating variables that are used by this page for various purposes */
-    @State var a = 0.0
+    /* Mutating variables which are used by this page for various purposes */
+    @State var measurementData : [MeasurementData] = [
+        MeasurementData (
+            amount: "89",
+            unit  : "bpm",
+            icon  : AnyView(Image(systemName: "heart.fill").foregroundStyle(.red)),
+            label : "Heart rate"
+        ),
+        MeasurementData (
+            amount: "129",
+            unit  : "cals",
+            icon  : AnyView(Image(systemName: "flame.fill").foregroundStyle(.red)),
+            label : "Energy burned"
+        )
+    ]
     @Bindable var audioPlayer : AudioPlayer
     
     init ( _ _music: Music ) {
@@ -21,67 +34,68 @@ struct MediaPlayback: View {
     var body: some View {
         HStack {
             PlaybackArea
-            AttemptArea
+            if ( screenSize == .regular ) {
+                AttemptSidebar( data: measurementData)
+            }
         }
             .onDisappear() {
                 audioPlayer.stop()
             }
     }
     
+}
+
+struct MeasurementData : Identifiable {
+    let id = UUID()
+    
+    var amount: String
+    var unit  : String = ""
+    var icon  : AnyView = AnyView(EmptyView())
+    var label : String
+}
+
+extension MediaPlayback {
+    
     /* The left-hand side of this page, where media playbacks occur and are controlled from */
     var PlaybackArea : some View {
         HStack {
             Spacer()
-            VStack ( alignment: .center ) {
-                Spacer()
-                MusicEntry (
-                    artwork : AnyView( 
-                        ArtworkSquare( 
-                            Image(systemName: "music.note")
-                            ,size: UIConfig.SquareSizes.giant
-                            ,font: .largeTitle
-                        ) 
-                    ), 
-                    title              : music.title, 
-                    desc               : music.artists,
-                    width              : UIConfig.SquareSizes.giant + UIConfig.Spacings.huge * 2,
-                    alignment          : .center,
-                    multiLineAlignment : .center,
-                    titleFont          : .title,
-                    descFont           : .title3
-                )
-
-                PlaybackControlGroup
-                Spacer()
+            if ( screenSize == .compact ){
+                ScrollView ( .vertical ) {
+                    PlaybackContent.padding()
+                }
+            } else {
+                PlaybackContent.padding()
             }
-                .padding()
             Spacer()
         }
     }
     
-    /* The right-hand side of this page, where statistics are displayed */
-    var AttemptArea : some View {
-        HStack {
-            VStack ( alignment: .leading ) {
-                Text("Calories burned")
-                Text("102kCal")
-                    .font(.largeTitle)
-                    .bold()
-                Spacer()
+    var PlaybackContent : some View {
+        VStack ( alignment: .center ) {
+            MusicEntry (
+                artwork : AnyView( 
+                    ArtworkSquare( 
+                        Image(systemName: "music.note")
+                        ,size: UIConfig.SquareSizes.giant
+                        ,font: .largeTitle
+                    ) 
+                ), 
+                title              : music.title, 
+                desc               : music.artists,
+                width              : UIConfig.SquareSizes.giant + UIConfig.Spacings.huge * 2,
+                alignment          : .center,
+                multiLineAlignment : .center,
+                titleFont          : .title,
+                descFont           : .title3
+            )
+            PlaybackControlGroup
+            if ( screenSize == .compact ) {
+                AttemptCard( data: measurementData)
             }
-            .padding()
-            
-            Spacer()
         }
-        .frame (
-            maxWidth: UIConfig.SidebarSizes.huge
-        )
-        .background( Color(.systemGray5) )
     }
     
-}
-
-extension MediaPlayback {
     var PlaybackControlGroup : some View {
         VStack {
             PlaybackSeekbar
@@ -92,7 +106,6 @@ extension MediaPlayback {
             }
             .padding()
         }
-        .padding()
     }
     
     var PlayPauseButton : some View {
@@ -136,11 +149,12 @@ extension MediaPlayback {
             }
         } label: {
             VStack ( spacing: UIConfig.Spacings.mini) {
-                Image( systemName: "timer.circle" )
+                Image( systemName: "dial" )
                     .font(.title)
                 Text("\(audioPlayer.playbackSpeed, specifier: "%.1fx")")
                     .font(.headline)
                     .bold()
+                    .opacity(0.75)
             }
         }
     }
@@ -150,8 +164,8 @@ extension MediaPlayback {
             
         } label: {
             Image (
-                systemName: "checkmark.applewatch"
-            ).font(.system(size: UIConfig.FontSizes.mini, weight: .regular))
+                systemName: "exclamationmark.applewatch"
+            ).font(.system(size: UIConfig.FontSizes.mini - 4, weight: .regular))
         }
     }
     
@@ -165,13 +179,93 @@ extension MediaPlayback {
         )
         .frame( maxWidth: UIConfig.SquareSizes.giant * 2 )
     }
+    
+    /* The right-hand side of this page, where statistics are displayed */
+    func AttemptSidebar ( data: [MeasurementData] ) -> some View {
+        HStack {
+            VStack ( alignment: .leading ) {
+                VStack ( alignment: .leading ) {
+                    Text("Current attempt")
+                        .bold()
+                        .opacity(0.4)
+                    ForEach ( data ) { d in
+                        CurrentAttemptMeasurementData ( data: d )
+                            .background (
+                                Color(.systemGray5).opacity(1), 
+                                in: RoundedRectangle( cornerRadius: UIConfig.CornerRadiuses.mini )
+                            )
+                    }
+                }
+                
+                Spacer()
+            }
+                .padding()
+            Spacer()
+        }
+        .frame (
+            maxWidth: UIConfig.SidebarSizes.huge
+        )
+        .background( Color(.systemGray6) )
+    }
+    
+    func AttemptCard ( data: [MeasurementData] ) -> some View {
+        return HStack ( alignment: .top ) {
+            VStack ( alignment: .leading ) {
+                Text("Current attempt")
+                    .bold()
+                    .opacity(0.4)
+                HStack {
+                    ForEach ( data ) { d in
+                        CurrentAttemptMeasurementData( data: d )
+                            .background (
+                                Color(.systemGray4).opacity(0.5), 
+                                in: RoundedRectangle( cornerRadius: UIConfig.CornerRadiuses.mini )
+                            )
+                    }
+                }
+            }
+            Spacer()
+        }
+            .padding()
+            .background (
+                Color(.systemGray6)
+            )
+            .clipShape (
+                RoundedRectangle(
+                    cornerRadius: UIConfig.CornerRadiuses.large
+                )
+            )
+    }
+    
+    func CurrentAttemptMeasurementData ( data: MeasurementData ) -> some View {        
+        return VStack ( alignment: .leading ) {
+            HStack ( alignment: .top, spacing: UIConfig.Spacings.mini ) {
+                HStack ( alignment: .bottom, spacing: UIConfig.Spacings.mini ) {
+                    Text(data.amount)
+                        .font(.title)
+                        .bold()
+                    Text(data.unit)
+                        .font(.footnote)
+                        .bold()
+                        .padding(.bottom, UIConfig.Paddings.micro)
+                }
+                Spacer()
+                data.icon
+            }
+            Text(data.label)
+                .font(.footnote)
+        }
+        .padding( .all, UIConfig.Paddings.large )
+    }
+    
+    
 }
 
 #Preview {    
     MediaPlayback( 
         Music(
-            _title: "Hello, world", 
-            _artists: "Kizuna Ai", 
+            _title: "September", 
+            _artists: "Earth, Wind & Fire", 
             _attempts: [], 
             _url: URL(fileURLWithPath: ""), 
             _bookmark: try! URL(fileURLWithPath: "").bookmarkData()

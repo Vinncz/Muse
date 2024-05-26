@@ -1,9 +1,4 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-An extension that provides a shared logger.
-*/
+// Copyright © 2023 Apple Inc.
 
 import Foundation
 import os

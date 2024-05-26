@@ -30,10 +30,8 @@
 		20211C5D2C00E60E00623A4D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C5C2C00E60E00623A4D /* Item.swift */; };
 		20211C5F2C00E62200623A4D /* Attempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C5E2C00E62200623A4D /* Attempt.swift */; };
 		20211C612C00E63500623A4D /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C602C00E63500623A4D /* View.swift */; };
-		20211C632C00E64300623A4D /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C622C00E64300623A4D /* Bundle.swift */; };
 		20211C692C00E6A100623A4D /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C682C00E6A100623A4D /* Page.swift */; };
 		20211C752C01037500623A4D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20211C742C01037400623A4D /* GoogleService-Info.plist */; };
-		20211C782C0107E700623A4D /* appcion.png in Resources */ = {isa = PBXBuildFile; fileRef = 20211C772C0107E700623A4D /* appcion.png */; };
 		20211C7B2C010ACE00623A4D /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 20211C7A2C010ACE00623A4D /* appicon.png */; };
 		20211C842C01BE7A00623A4D /* AuthorizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C832C01BE7A00623A4D /* AuthorizeButton.swift */; };
 		20211C8B2C01DA3000623A4D /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C8A2C01DA3000623A4D /* WorkoutManager.swift */; };
@@ -46,8 +44,19 @@
 		20211C9C2C01DB7A00623A4D /* HKWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C9A2C01DB7900623A4D /* HKWorkout.swift */; };
 		20211C9E2C01DC0B00623A4D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C9D2C01DC0B00623A4D /* Logger.swift */; };
 		20211C9F2C01DC0B00623A4D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C9D2C01DC0B00623A4D /* Logger.swift */; };
-		20211CA12C01DCAB00623A4D /* WorkoutManager_WatchOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CA02C01DCAB00623A4D /* WorkoutManager_WatchOS.swift */; };
+		20211CA12C01DCAB00623A4D /* WorkoutManager_watchOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CA02C01DCAB00623A4D /* WorkoutManager_watchOS.swift */; };
 		20211CA32C01DCC900623A4D /* WorkoutManager_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CA22C01DCC900623A4D /* WorkoutManager_iOS.swift */; };
+		20211CA82C01E32300623A4D /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CA72C01E32300623A4D /* Debug.swift */; };
+		20211CA92C01E32300623A4D /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CA72C01E32300623A4D /* Debug.swift */; };
+		20211CAB2C01E34300623A4D /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CAA2C01E34300623A4D /* Bundle.swift */; };
+		20211CAC2C01E34300623A4D /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CAA2C01E34300623A4D /* Bundle.swift */; };
+		20211CB12C01EBCA00623A4D /* appicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 20211CB02C01EBCA00623A4D /* appicon.png */; };
+		20211CB32C0209FB00623A4D /* AppValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB22C0209FB00623A4D /* AppValueProvider.swift */; };
+		20211CB42C0209FB00623A4D /* AppValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB22C0209FB00623A4D /* AppValueProvider.swift */; };
+		20211CB62C022AB700623A4D /* HKWorkoutSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB52C022AB700623A4D /* HKWorkoutSessionState.swift */; };
+		20211CB72C022AB700623A4D /* HKWorkoutSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB52C022AB700623A4D /* HKWorkoutSessionState.swift */; };
+		20211CB92C02399C00623A4D /* exWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB82C02399C00623A4D /* exWorkoutManager.swift */; };
+		20211CBA2C02399C00623A4D /* exWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB82C02399C00623A4D /* exWorkoutManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,7 +110,6 @@
 		20211C5C2C00E60E00623A4D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		20211C5E2C00E62200623A4D /* Attempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attempt.swift; sourceTree = "<group>"; };
 		20211C602C00E63500623A4D /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		20211C622C00E64300623A4D /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		20211C682C00E6A100623A4D /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		20211C6A2C00E9B200623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		20211C6B2C00E9C400623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -113,7 +121,6 @@
 		20211C712C00EA2D00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		20211C722C00EB0B00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		20211C742C01037400623A4D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		20211C772C0107E700623A4D /* appcion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appcion.png; sourceTree = "<group>"; };
 		20211C7A2C010ACE00623A4D /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
 		20211C7C2C010C3F00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		20211C7D2C01107C00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -129,10 +136,16 @@
 		20211C912C01DA8C00623A4D /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		20211C9A2C01DB7900623A4D /* HKWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKWorkout.swift; sourceTree = "<group>"; };
 		20211C9D2C01DC0B00623A4D /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		20211CA02C01DCAB00623A4D /* WorkoutManager_WatchOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager_WatchOS.swift; sourceTree = "<group>"; };
+		20211CA02C01DCAB00623A4D /* WorkoutManager_watchOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager_watchOS.swift; sourceTree = "<group>"; };
 		20211CA22C01DCC900623A4D /* WorkoutManager_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager_iOS.swift; sourceTree = "<group>"; };
 		20211CA42C01DE7C00623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		20211CA52C01DE9400623A4D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		20211CA72C01E32300623A4D /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
+		20211CAA2C01E34300623A4D /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		20211CB02C01EBCA00623A4D /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
+		20211CB22C0209FB00623A4D /* AppValueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppValueProvider.swift; sourceTree = "<group>"; };
+		20211CB52C022AB700623A4D /* HKWorkoutSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKWorkoutSessionState.swift; sourceTree = "<group>"; };
+		20211CB82C02399C00623A4D /* exWorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exWorkoutManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,7 +273,6 @@
 			children = (
 				20211C802C0110DA00623A4D /* README.md */,
 				20211C602C00E63500623A4D /* View.swift */,
-				20211C622C00E64300623A4D /* Bundle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -337,8 +349,8 @@
 		20211C762C0107C500623A4D /* Raws */ = {
 			isa = PBXGroup;
 			children = (
+				20211CB02C01EBCA00623A4D /* appicon.png */,
 				20211C7F2C0110A300623A4D /* README.md */,
-				20211C772C0107E700623A4D /* appcion.png */,
 			);
 			path = Raws;
 			sourceTree = "<group>";
@@ -355,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				20211C872C01D3B400623A4D /* README.md */,
+				20211CA62C01E2CF00623A4D /* GlobalFunctions */,
 				20211C8D2C01DA6800623A4D /* Configs */,
 				20211C892C01DA0500623A4D /* Extensions */,
 				20211C882C01D7A900623A4D /* HealthKit */,
@@ -375,10 +388,13 @@
 			isa = PBXGroup;
 			children = (
 				20211CA42C01DE7C00623A4D /* README.md */,
-				20211C9A2C01DB7900623A4D /* HKWorkout.swift */,
 				20211C9D2C01DC0B00623A4D /* Logger.swift */,
-				20211CA02C01DCAB00623A4D /* WorkoutManager_WatchOS.swift */,
+				20211CAA2C01E34300623A4D /* Bundle.swift */,
+				20211CB52C022AB700623A4D /* HKWorkoutSessionState.swift */,
+				20211C9A2C01DB7900623A4D /* HKWorkout.swift */,
+				20211CB82C02399C00623A4D /* exWorkoutManager.swift */,
 				20211CA22C01DCC900623A4D /* WorkoutManager_iOS.swift */,
+				20211CA02C01DCAB00623A4D /* WorkoutManager_watchOS.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -387,10 +403,19 @@
 			isa = PBXGroup;
 			children = (
 				20211C6A2C00E9B200623A4D /* README.md */,
-				20211C8E2C01DA7300623A4D /* UIConfig.swift */,
 				20211C912C01DA8C00623A4D /* AppConfig.swift */,
+				20211C8E2C01DA7300623A4D /* UIConfig.swift */,
+				20211CB22C0209FB00623A4D /* AppValueProvider.swift */,
 			);
 			path = Configs;
+			sourceTree = "<group>";
+		};
+		20211CA62C01E2CF00623A4D /* GlobalFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				20211CA72C01E32300623A4D /* Debug.swift */,
+			);
+			path = GlobalFunctions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -474,10 +499,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20211CB12C01EBCA00623A4D /* appicon.png in Resources */,
 				20211C1B2C00DFA000623A4D /* Preview Assets.xcassets in Resources */,
 				20211C182C00DFA000623A4D /* Assets.xcassets in Resources */,
 				20211C752C01037500623A4D /* GoogleService-Info.plist in Resources */,
-				20211C782C0107E700623A4D /* appcion.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +524,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				20211C612C00E63500623A4D /* View.swift in Sources */,
+				20211CB62C022AB700623A4D /* HKWorkoutSessionState.swift in Sources */,
+				20211CB92C02399C00623A4D /* exWorkoutManager.swift in Sources */,
 				20211C5F2C00E62200623A4D /* Attempt.swift in Sources */,
 				20211CA32C01DCC900623A4D /* WorkoutManager_iOS.swift in Sources */,
 				20211C162C00DF9F00623A4D /* ContentView.swift in Sources */,
@@ -511,13 +538,15 @@
 				20211C9E2C01DC0B00623A4D /* Logger.swift in Sources */,
 				20211C592C00E5F300623A4D /* MusicFile.swift in Sources */,
 				20211C922C01DA8C00623A4D /* AppConfig.swift in Sources */,
+				20211CB32C0209FB00623A4D /* AppValueProvider.swift in Sources */,
 				20211C842C01BE7A00623A4D /* AuthorizeButton.swift in Sources */,
 				20211C472C00E54A00623A4D /* MediaPlayback.swift in Sources */,
 				20211C4D2C00E58200623A4D /* ImportMusic.swift in Sources */,
 				20211C552C00E5C100623A4D /* LocalLogger.swift in Sources */,
 				20211C492C00E55600623A4D /* Library.swift in Sources */,
 				20211C452C00E52B00623A4D /* MusicPicker.swift in Sources */,
-				20211C632C00E64300623A4D /* Bundle.swift in Sources */,
+				20211CAB2C01E34300623A4D /* Bundle.swift in Sources */,
+				20211CA82C01E32300623A4D /* Debug.swift in Sources */,
 				20211C8B2C01DA3000623A4D /* WorkoutManager.swift in Sources */,
 				20211C692C00E6A100623A4D /* Page.swift in Sources */,
 				20211C572C00E5DC00623A4D /* SectionHeader.swift in Sources */,
@@ -531,10 +560,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				20211C9C2C01DB7A00623A4D /* HKWorkout.swift in Sources */,
+				20211CBA2C02399C00623A4D /* exWorkoutManager.swift in Sources */,
+				20211CB72C022AB700623A4D /* HKWorkoutSessionState.swift in Sources */,
 				20211C282C00DFA000623A4D /* ContentView.swift in Sources */,
 				20211C932C01DA8C00623A4D /* AppConfig.swift in Sources */,
+				20211CAC2C01E34300623A4D /* Bundle.swift in Sources */,
 				20211C902C01DA7300623A4D /* UIConfig.swift in Sources */,
-				20211CA12C01DCAB00623A4D /* WorkoutManager_WatchOS.swift in Sources */,
+				20211CB42C0209FB00623A4D /* AppValueProvider.swift in Sources */,
+				20211CA92C01E32300623A4D /* Debug.swift in Sources */,
+				20211CA12C01DCAB00623A4D /* WorkoutManager_watchOS.swift in Sources */,
 				20211C9F2C01DC0B00623A4D /* Logger.swift in Sources */,
 				20211C262C00DFA000623A4D /* MuseApp.swift in Sources */,
 				20211C8C2C01DA3000623A4D /* WorkoutManager.swift in Sources */,

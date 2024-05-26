@@ -1,51 +1,54 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-An extension that wraps workout operations specific to iOS.
-*/
+// Copyright © 2023 Apple Inc.
+// Copyright © 2024 Kevin Gunawan
+// This file partly contains copyrighted (MIT Licensed) works of Apple Inc.
 
 import Foundation
-import os
 import HealthKit
+import os
 
-// MARK: - Workout session management
-//
+/* WorkoutManager's workout session management on iOS */
 extension WorkoutManager {
-    func startWatchWorkout(workoutType: HKWorkoutActivityType) async throws {
+    
+    /** Begins a workout on [Watchful Muse] */
+    func startWatchWorkout ( workoutType: HKWorkoutActivityType ) async throws {
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = workoutType
-        configuration.locationType = .outdoor
-        try await healthStore.startWatchApp(toHandle: configuration)
+        configuration.locationType = AppConfig.workoutLocation
+        
+        try await healthStore.startWatchApp( toHandle: configuration )
     }
     
-    func retrieveRemoteSession() {
-        /**
-         HealthKit calls this handler when a session starts mirroring.
-         */
+    /** Enables [Muse on iOS] to begin mirroring the watch's workout in the background  */
+    func retrieveRemoteSession ( ) {
         healthStore.workoutSessionMirroringStartHandler = { mirroredSession in
             Task { @MainActor in
                 self.resetWorkout()
                 self.session = mirroredSession
                 self.session?.delegate = self
-                Logger.shared.log("Start mirroring remote session: \(mirroredSession)")
+                
+                debug("Start mirroring remote session: \(mirroredSession)")
             }
         }
     }
     
-    func handleReceivedData(_ data: Data) throws {
-        if let elapsedTime = try? JSONDecoder().decode(WorkoutElapsedTime.self, from: data) {
+    /** The function which handles the data sent from [Watchful Muse] */
+    func handleReceivedData ( _ data: Data ) throws {
+        if let elapsedTime = try? JSONDecoder().decode( WorkoutElapsedTime.self, from: data ) {
             var currentElapsedTime: TimeInterval = 0
+            
             if session?.state == .running {
-                currentElapsedTime = elapsedTime.timeInterval + Date().timeIntervalSince(elapsedTime.date)
+                currentElapsedTime = elapsedTime.timeInterval + Date().timeIntervalSince( elapsedTime.date )
             } else {
                 currentElapsedTime = elapsedTime.timeInterval
             }
-            elapsedTimeInterval = currentElapsedTime
-        } else if let statisticsArray = try NSKeyedUnarchiver.unarchivedArrayOfObjects(ofClass: HKStatistics.self, from: data) {
+            
+            self.elapsedTimeInterval = currentElapsedTime
+            
+        } else if let statisticsArray = try NSKeyedUnarchiver.unarchivedArrayOfObjects( ofClass: HKStatistics.self, from: data ) {
             for statistics in statisticsArray {
                 updateForStatistics(statistics)
             }
+            
         }
     }
 }
@@ -58,9 +61,8 @@ extension WorkoutManager {
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day], from: .now)
             
-            guard let startDate = calendar.date(from: components),
-                  let endDate = calendar.date(byAdding: .day, value: 1, to: startDate) else {
-                Logger.shared.log("Failed to create dates from: \(components)")
+            guard let startDate = calendar.date(from: components), let endDate = calendar.date(byAdding: .day, value: 1, to: startDate) else {
+                debug("Failed to create dates from: \(components)")
                 continuation.resume(returning: [])
                 return
             }
@@ -76,7 +78,7 @@ extension WorkoutManager {
                                       limit: HKObjectQueryNoLimit,
                                       sortDescriptors: [sortByStartDate]) { (query, samples, error) in
                 if let error {
-                    Logger.shared.log("Failed to run a sample query: \(error)")
+                    debug("Failed to run a sample query: \(error)")
                     continuation.resume(throwing: error)
                     return
                 }
@@ -101,7 +103,7 @@ extension WorkoutManager {
                                                      matchingPolicy: .nextTime,
                                                      repeatedTimePolicy: .first,
                                                      direction: .backward) else {
-                Logger.shared.log("Failed to calculate the anchor date.")
+                debug("Failed to calculate the anchor date.")
                 continuation.resume(returning: [])
                 return
             }
@@ -116,7 +118,7 @@ extension WorkoutManager {
             
             query.initialResultsHandler = { (query, results, error) in
                 if let error = error {
-                    Logger.shared.log("Failed to run a statistics collection query: \(error)")
+                    debug("Failed to run a statistics collection query: \(error)")
                     continuation.resume(throwing: error)
                     return
                 }

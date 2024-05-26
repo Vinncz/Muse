@@ -21,7 +21,6 @@ struct ContentView: View {
                     }
                 })
                 .navigationTitle(Bundle.main.appName! as String)
-                .navigationBarTitleDisplayMode(.large)
             
         } detail: {
             NavigationStack {

@@ -29,11 +29,17 @@ struct UIConfig {
     }
     
     struct SidebarSizes : Sizable {
+        /** Represents 160px on screen */
         static var nano   : Double = 160
+        /** Represents 192px on screen */
         static var micro  : Double = 192
+        /** Represents 224px on screen */
         static var mini   : Double = 224
+        /** Represents 256px on screen */
         static var normal : Double = 256
+        /** Represents 320px on screen */
         static var large  : Double = 320
+        /** Represents 384px on screen */
         static var huge   : Double = 384
     }
     

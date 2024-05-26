@@ -57,7 +57,6 @@ struct MusicEntry: View {
             .frame(
                 width: width
             )
-            .padding()
     }
 }
 

@@ -12,58 +12,88 @@ struct Library: View {
             PreviouslyPlayed
             Spacer()
         }
-            .padding(.horizontal, UIConfig.Paddings.mini)
     }
     
-    
-    
-    /* Start of File-specific Components area */
-        var MyMusics : some View {
-            VStack ( alignment: .leading ) {
-                Text( SectionHeader.myMusics )
-                    .font(.title2)
-                    .bold()
-                
-                ScrollView ( .horizontal, showsIndicators: false ) {
-                    HStack ( alignment: .top ) {
-                        ArrayOfImportedMusic
-                        
-                        ImportMusic()
-                    }
+}
+
+extension Library {
+
+    var MyMusics : some View {
+        VStack ( alignment: .leading ) {
+            Text( SectionHeader.myMusics )
+                .font(.title2)
+                .bold()
+                .padding(.horizontal, UIConfig.Paddings.huge - 4)
+            
+            ScrollView ( .horizontal, showsIndicators: false ) {
+                HStack ( alignment: .top, spacing: UIConfig.Spacings.large ) {
+                    ArrayOfImportedMusic
+                    ImportMusic()
                 }
+                    .padding(.horizontal, UIConfig.Paddings.huge - 4)
             }
-                .padding()
         }
-        
-        var PreviouslyPlayed : some View {
-            VStack ( alignment: .leading ) {
-                Text( SectionHeader.previouslyPlayed )
-                    .font(.title2)
-                    .bold()
-                
-                ScrollView ( .horizontal, showsIndicators: false ) {
-                    HStack ( alignment: .top ) {
-                        ArrayOfPreviouslyPlayedMusic.view
-                        
-                        if ( ArrayOfPreviouslyPlayedMusic.absent ) {
-                            MusicEntry (
-                                artwork : AnyView(
-                                    ArtworkSquare( 
-                                        Image(systemName: "flame"),
-                                        backgroundColor: .orange.opacity(0.75)
-                                    )
-                                ), 
-                                title   : "Let's play some music!", 
-                                desc    : "You haven't played any, yet."
-                            )
-                        }
+        .padding( .top, UIConfig.Paddings.large )
+    }
+    
+    var PreviouslyPlayed : some View {
+        VStack ( alignment: .leading ) {
+            Text( SectionHeader.previouslyPlayed )
+                .font(.title2)
+                .bold()
+                .padding(.horizontal, UIConfig.Paddings.huge - 4)
+            
+            ScrollView ( .horizontal, showsIndicators: false ) {
+                HStack ( alignment: .top, spacing: UIConfig.Spacings.large ) {
+                    ArrayOfPreviouslyPlayedMusic.view
+
+                    if ( ArrayOfPreviouslyPlayedMusic.absent ) {
+                        MusicEntry (
+                            artwork : AnyView (
+                                ArtworkSquare ( 
+                                    Image(systemName: "flame"),
+                                    backgroundColor: .orange.opacity(0.75)
+                                )
+                            ), 
+                            title   : "Let's play some music!", 
+                            desc    : "You haven't played any, yet."
+                        )
                     }
                 }
-            }.padding()
+                    .padding(.horizontal, UIConfig.Paddings.huge - 4)
+            }
         }
+            .padding( .top, UIConfig.Paddings.huge )
+    }
     
-        var ArrayOfImportedMusic : some View {
-            return ForEach ( musics ) { music in
+    var ArrayOfImportedMusic : some View {
+        return ForEach ( musics ) { music in
+            NavigationLink {
+                MediaPlayback( music )
+                    .transition(.move(edge: .bottom))
+                
+            } label: {
+                MusicEntry (
+                    artwork : AnyView( ArtworkSquare( Image(systemName: "music.note") ) ), 
+                    title   : music.title, 
+                    desc    : music.artists
+                )
+            }
+            .buttonStyle(PlainButtonStyle()) 
+        }
+    }
+    
+    var ArrayOfPreviouslyPlayedMusic : ( 
+        view    : ForEach<[Music], PersistentIdentifier, some View>, 
+        absent : Bool
+    ) {
+        let previouslyPlayedMusics = musics.filter({ m in
+            m.attempts.count > 0
+        })
+        let noMusicHasBeenPlayed : Bool = previouslyPlayedMusics.isEmpty
+        
+        return (
+            ForEach ( previouslyPlayedMusics ) { music in
                 NavigationLink {
                     MediaPlayback( music )
                         .transition(.move(edge: .bottom))
@@ -71,46 +101,17 @@ struct Library: View {
                 } label: {
                     MusicEntry (
                         artwork : AnyView(
-                            ArtworkSquare( Image(systemName: "music.note") )
+                            ArtworkSquare( Image(systemName: "flame") )
                         ), 
                         title   : music.title, 
                         desc    : music.artists
                     )
                 }
-                    .buttonStyle(PlainButtonStyle()) 
-            }
-        }
-        
-        var ArrayOfPreviouslyPlayedMusic : ( 
-            view    : ForEach<[Music], PersistentIdentifier, some View>, 
-            absent : Bool
-        ) {
-            let previouslyPlayedMusics = musics.filter({ m in
-                m.attempts.count > 0
-            })
-            let noMusicHasBeenPlayed : Bool = previouslyPlayedMusics.isEmpty
+            }, 
             
-            return (
-                ForEach ( previouslyPlayedMusics ) { music in
-                    NavigationLink {
-                        MediaPlayback( music )
-                            .transition(.move(edge: .bottom))
-                        
-                    } label: {
-                        MusicEntry (
-                            artwork : AnyView(
-                                ArtworkSquare( Image(systemName: "flame") )
-                            ), 
-                            title   : music.title, 
-                            desc    : music.artists
-                        )
-                    }
-                }, 
-                
-                noMusicHasBeenPlayed
-            )
-        }
-    /* End of File-specific Components area */
+            noMusicHasBeenPlayed
+        )
+    }
     
 }
 
