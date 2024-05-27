@@ -3,7 +3,7 @@ import SwiftData
 
 @main
 struct MuseApp: App {
-    
+    private let workoutManager = WorkoutManager.instance
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -23,6 +23,7 @@ struct MuseApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(workoutManager)
                 .tint(.pink)
         }
         .modelContainer(sharedModelContainer)

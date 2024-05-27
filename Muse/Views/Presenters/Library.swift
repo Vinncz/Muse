@@ -4,6 +4,7 @@ import SwiftData
 struct Library: View {
     
     @Environment(\.modelContext) private var modelContext
+    @Environment(WorkoutManager.self) var workoutManager: WorkoutManager
     @Query var musics : [ Music ]
     
     var body: some View {

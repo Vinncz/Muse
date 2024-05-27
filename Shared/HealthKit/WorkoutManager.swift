@@ -9,11 +9,11 @@ import os
 
 /* WorkoutManager's singleton helper */
 extension WorkoutManager {
-    private static let instance = WorkoutManager()
-    static func getInstance () -> WorkoutManager { return instance }
+    static let instance = WorkoutManager()
+//    static func getInstance () -> WorkoutManager { return instance }
 }
 
-@MainActor @Observable class WorkoutManager: NSObject {
+@Observable @MainActor class WorkoutManager: NSObject {
 
     /*
      Every initialization of WorkoutManager kicks off a Task; which consumes an asynchronous stream. 

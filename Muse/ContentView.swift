@@ -34,6 +34,8 @@ struct ContentView: View {
                     activePage = presentablePages.first
                 }
     }
+
+    @Environment(WorkoutManager.self) var workoutManager: WorkoutManager
     
     /* Mutating variables which are used by this page for various purposes */
     @State private var activePage: Page? = nil

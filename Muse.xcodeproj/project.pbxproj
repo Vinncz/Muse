@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20151EB32C0378A200EA8A25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20151EB22C0378A200EA8A25 /* AppDelegate.swift */; };
 		20211C142C00DF9F00623A4D /* MuseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C132C00DF9F00623A4D /* MuseApp.swift */; };
 		20211C162C00DF9F00623A4D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211C152C00DF9F00623A4D /* ContentView.swift */; };
 		20211C182C00DFA000623A4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20211C172C00DFA000623A4D /* Assets.xcassets */; };
@@ -57,6 +58,10 @@
 		20211CB72C022AB700623A4D /* HKWorkoutSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB52C022AB700623A4D /* HKWorkoutSessionState.swift */; };
 		20211CB92C02399C00623A4D /* exWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB82C02399C00623A4D /* exWorkoutManager.swift */; };
 		20211CBA2C02399C00623A4D /* exWorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20211CB82C02399C00623A4D /* exWorkoutManager.swift */; };
+		2026D0162C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D0152C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift */; };
+		2026D0172C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D0152C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift */; };
+		2026D01B2C03B4F700FE7CC0 /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D01A2C03B4F700FE7CC0 /* ElapsedTimeView.swift */; };
+		2026D01C2C03B4F700FE7CC0 /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D01A2C03B4F700FE7CC0 /* ElapsedTimeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		20151EB22C0378A200EA8A25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20211C102C00DF9F00623A4D /* Muse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Muse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20211C132C00DF9F00623A4D /* MuseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseApp.swift; sourceTree = "<group>"; };
 		20211C152C00DF9F00623A4D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -146,6 +152,8 @@
 		20211CB22C0209FB00623A4D /* AppValueProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppValueProvider.swift; sourceTree = "<group>"; };
 		20211CB52C022AB700623A4D /* HKWorkoutSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKWorkoutSessionState.swift; sourceTree = "<group>"; };
 		20211CB82C02399C00623A4D /* exWorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exWorkoutManager.swift; sourceTree = "<group>"; };
+		2026D0152C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTimelineSchedule.swift; sourceTree = "<group>"; };
+		2026D01A2C03B4F700FE7CC0 /* ElapsedTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElapsedTimeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +231,7 @@
 				20211C272C00DFA000623A4D /* ContentView.swift */,
 				20211C292C00DFA100623A4D /* Assets.xcassets */,
 				20211C2B2C00DFA100623A4D /* Preview Content */,
+				20151EB22C0378A200EA8A25 /* AppDelegate.swift */,
 			);
 			path = "Muse Watch App";
 			sourceTree = "<group>";
@@ -366,6 +375,8 @@
 		20211C862C01D38500623A4D /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				2026D0182C03B4E700FE7CC0 /* Views */,
+				2026D0142C03B41100FE7CC0 /* Helpers */,
 				20211C872C01D3B400623A4D /* README.md */,
 				20211CA62C01E2CF00623A4D /* GlobalFunctions */,
 				20211C8D2C01DA6800623A4D /* Configs */,
@@ -416,6 +427,30 @@
 				20211CA72C01E32300623A4D /* Debug.swift */,
 			);
 			path = GlobalFunctions;
+			sourceTree = "<group>";
+		};
+		2026D0142C03B41100FE7CC0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2026D0152C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2026D0182C03B4E700FE7CC0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2026D0192C03B4ED00FE7CC0 /* Presenters */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2026D0192C03B4ED00FE7CC0 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				2026D01A2C03B4F700FE7CC0 /* ElapsedTimeView.swift */,
+			);
+			path = Presenters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -536,6 +571,7 @@
 				20211C522C00E5AA00623A4D /* AudioPlayer.swift in Sources */,
 				20211C5D2C00E60E00623A4D /* Item.swift in Sources */,
 				20211C9E2C01DC0B00623A4D /* Logger.swift in Sources */,
+				2026D0162C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift in Sources */,
 				20211C592C00E5F300623A4D /* MusicFile.swift in Sources */,
 				20211C922C01DA8C00623A4D /* AppConfig.swift in Sources */,
 				20211CB32C0209FB00623A4D /* AppValueProvider.swift in Sources */,
@@ -544,6 +580,7 @@
 				20211C4D2C00E58200623A4D /* ImportMusic.swift in Sources */,
 				20211C552C00E5C100623A4D /* LocalLogger.swift in Sources */,
 				20211C492C00E55600623A4D /* Library.swift in Sources */,
+				2026D01B2C03B4F700FE7CC0 /* ElapsedTimeView.swift in Sources */,
 				20211C452C00E52B00623A4D /* MusicPicker.swift in Sources */,
 				20211CAB2C01E34300623A4D /* Bundle.swift in Sources */,
 				20211CA82C01E32300623A4D /* Debug.swift in Sources */,
@@ -563,14 +600,17 @@
 				20211CBA2C02399C00623A4D /* exWorkoutManager.swift in Sources */,
 				20211CB72C022AB700623A4D /* HKWorkoutSessionState.swift in Sources */,
 				20211C282C00DFA000623A4D /* ContentView.swift in Sources */,
+				20151EB32C0378A200EA8A25 /* AppDelegate.swift in Sources */,
 				20211C932C01DA8C00623A4D /* AppConfig.swift in Sources */,
 				20211CAC2C01E34300623A4D /* Bundle.swift in Sources */,
 				20211C902C01DA7300623A4D /* UIConfig.swift in Sources */,
+				2026D01C2C03B4F700FE7CC0 /* ElapsedTimeView.swift in Sources */,
 				20211CB42C0209FB00623A4D /* AppValueProvider.swift in Sources */,
 				20211CA92C01E32300623A4D /* Debug.swift in Sources */,
 				20211CA12C01DCAB00623A4D /* WorkoutManager_watchOS.swift in Sources */,
 				20211C9F2C01DC0B00623A4D /* Logger.swift in Sources */,
 				20211C262C00DFA000623A4D /* MuseApp.swift in Sources */,
+				2026D0172C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift in Sources */,
 				20211C8C2C01DA3000623A4D /* WorkoutManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,10 +678,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Muse would like to access your health data";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Muse would like to access your health data";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -693,9 +736,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Muse would like to access your health data";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Muse would like to access your health data";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -705,6 +751,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Muse Watch App/Muse Watch AppRelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Muse Watch App/Preview Content\"";
@@ -721,6 +768,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vinapp.Muse.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -752,6 +800,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vinapp.Muse.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -768,6 +817,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Muse/MuseRelease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Muse/Preview Content\"";
@@ -791,6 +841,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vinapp.Muse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -828,6 +879,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vinapp.Muse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

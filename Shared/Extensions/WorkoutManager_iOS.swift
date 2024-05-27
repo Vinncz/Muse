@@ -10,9 +10,9 @@ import os
 extension WorkoutManager {
     
     /** Begins a workout on [Watchful Muse] */
-    func startWatchWorkout ( workoutType: HKWorkoutActivityType ) async throws {
+    func startWatchWorkout ( ) async throws {
         let configuration = HKWorkoutConfiguration()
-        configuration.activityType = workoutType
+        configuration.activityType = .other
         configuration.locationType = AppConfig.workoutLocation
         
         try await healthStore.startWatchApp( toHandle: configuration )
