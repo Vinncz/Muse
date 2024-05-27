@@ -12,26 +12,21 @@ struct MediaPlayback: View {
     
     var body: some View {
         HStack {
-            PlaybackArea
+            MediaPlaybackArea( music: music, audioPlayer: $audioPlayer )
             if ( screenSize == .regular ) {
-                AttemptSidebar()
+                AttemptSidebar(audioPlayer: $audioPlayer)
             }
         }
-            .onDisappear() {
-                audioPlayer.stop()
-            }
     }
     
     /* Environment variables needed by this page */
     @Environment(\.horizontalSizeClass) var screenSize
-    @Environment(\.modelContext) private var modelContext
-    @Environment(WorkoutManager.self) var workoutManager: WorkoutManager
     
     /* Parameters which are expected by this page */
     let music : Music
     
     /* Mutating variables which are used by this page for various purposes */
-    @Bindable var audioPlayer  : AudioPlayer
+    @State var audioPlayer  : AudioPlayer
     @State var measurementData : [MeasurementData] = [
         MeasurementData (
             amount: "89",
@@ -46,12 +41,6 @@ struct MediaPlayback: View {
             label : "Energy burned"
         )
     ]
-    @State var warningSheetShown : Bool = false
-    @State var warningSheetAlreadyShown : Bool = false
-    @State var permissionSheetShown : Bool = false
-    @State var permissionSheetAlreadyShown : Bool = false
-    @State var rememberSheetShown : Bool = false
-    @State var rememberSheetAlreadyShown : Bool = false
     
 }
 
@@ -64,10 +53,23 @@ struct MeasurementData : Identifiable {
     var label : String
 }
 
-extension MediaPlayback {
+struct MediaPlaybackArea : View {
     
-    /* The left-hand side of this page, where media playbacks occur, and are controlled from */
-    var PlaybackArea : some View {
+    @Environment(\.horizontalSizeClass) var screenSize
+    @Environment(\.modelContext) private var modelContext
+    @Environment(WorkoutManager.self) var workoutManager: WorkoutManager
+    
+    let music : Music
+    @Binding var audioPlayer : AudioPlayer
+
+    @State var warningSheetShown : Bool = false
+    @State var warningSheetAlreadyShown : Bool = false
+    @State var permissionSheetShown : Bool = false
+    @State var permissionSheetAlreadyShown : Bool = false
+    @State var rememberSheetShown : Bool = false
+    @State var rememberSheetAlreadyShown : Bool = false
+    
+    var body : some View {
         HStack {
             Spacer()
             if ( screenSize == .compact ){
@@ -79,6 +81,9 @@ extension MediaPlayback {
             }
             Spacer()
         }
+            .onAppear() {
+                workoutManager.retrieveRemoteSession()
+            }
     }
     
     var PlaybackContent : some View {
@@ -101,7 +106,7 @@ extension MediaPlayback {
             )
             PlaybackControlGroup
             if ( screenSize == .compact ) {
-                AttemptCard()
+                AttemptCard(audioPlayer: $audioPlayer)
             }
         }
     }
@@ -121,6 +126,7 @@ extension MediaPlayback {
     var PlayPauseButton : some View {
         let systemIcon : String
         let audioPlayerIsPlaying = self.audioPlayer.isPlaying
+        let audioPlayerHasFinishedPlaying = self.audioPlayer.hasFinishedPlaying
         var closure    : () -> Void = {}
         
         if ( audioPlayerIsPlaying ) {
@@ -139,12 +145,12 @@ extension MediaPlayback {
         return
             Button {
                 let hasRequestedPermission = UserDefaults.standard.bool(forKey: "has-requested-permission")
-                debug("has requested permission: \(hasRequestedPermission)")
                 guard ( hasRequestedPermission ) else {
                     warningSheetShown = true
                     return
                 } 
                 closure()
+                
             } label: {
                 Image (
                     systemName:  systemIcon
@@ -160,7 +166,6 @@ extension MediaPlayback {
             .sheet ( isPresented: $warningSheetShown ) {
                     WarningSheet
                 }
-        
             .healthDataAccessRequest ( store: AppValueProvider.healthStore, shareTypes: AppConfig.healthKitShareTypes, readTypes: AppConfig.healthKitReadTypes, trigger: permissionSheetShown ) { result in
                     switch ( result ) {
                         case .success(_):
@@ -172,7 +177,6 @@ extension MediaPlayback {
                             debug("Failed to request permission: \(error)")
                     }
                 }
-        
             .sheet ( isPresented: $rememberSheetShown ) {
                     rememberSheetAlreadyShown = true
                     UserDefaults.standard.set(true, forKey: "has-requested-permission")
@@ -204,25 +208,20 @@ extension MediaPlayback {
         }
     }
     
-    private func wakeWatchIfHadNotAlreadyAndBeginWorkout ( ) {
-        Task {
-            do {
-                try await workoutManager.startWatchWorkout()
-                debug("tried to start cycling on watch")
-            } catch {
-                debug("Failed to start cycling on the paired watch.")
-            }
-        }
-    }
-    
     var WatchConnectivityButton : some View {
-        Button {
-            wakeWatchIfHadNotAlreadyAndBeginWorkout()
-        } label: {
-            Image (
-                systemName: "exclamationmark.applewatch"
-            ).font(.system(size: UIConfig.FontSizes.mini - 4, weight: .regular))
-        }
+        return
+            Button {
+                Task {
+                    let sessionIsActive = await workoutManager.sessionState.isActive
+                    if ( !sessionIsActive ) {
+                        wakeWatchIfHadNotAlreadyAndBeginWorkout( )
+                    }
+                }
+            } label: {
+                Image (
+                    systemName: "exclamationmark.applewatch"
+                ).font(.system(size: UIConfig.FontSizes.mini - 4, weight: .regular))
+            }
     }
     
     var PlaybackSeekbar : some View {
@@ -356,7 +355,7 @@ extension MediaPlayback {
                     """
                     If the data displayed on the right doesn’t budge, it might be either because your watch takes time to sync all that data, or you might accidentally didn’t give Muse the required permission to read your health data.
 
-                    No worries though, you can always head over to Settings > Privacy & Security > Health and give Muse the permission it requires.  After the watch has successfully synced all that, you’ll be able to see your data in graph on the “attempt” screen. Head there by using the sidebar on the left.
+                    No worries though, you can always head over to Settings > Privacy & Security > Health and give Muse the permission it requires.After the watch has successfully synced all that, you’ll be able to see your data in graph on the “attempt” screen. Head there by using the sidebar on the left.
                     """
                 )
                     .padding( .all, UIConfig.Paddings.normal )
@@ -377,6 +376,16 @@ extension MediaPlayback {
                 .buttonStyle(.borderedProminent)
         }
             .padding( .all, UIConfig.Paddings.huge )
+    }
+    
+    private func wakeWatchIfHadNotAlreadyAndBeginWorkout ( ) {
+        Task {
+            do {
+                try await workoutManager.startWatchWorkout()
+            } catch let error {
+                debug("Failed to start workout on the paired watch. \(error)")
+            }
+        }
     }
 }
 
@@ -405,127 +414,118 @@ struct CurrentAttemptMeasurementData : View {
     }
 }
 
-struct AttemptCard : View {
-    @Environment(WorkoutManager.self) var workoutManager : WorkoutManager
+struct AttemptCard : View {    
+    @Binding var audioPlayer : AudioPlayer
     
     var body : some View {
-        let fromDate = workoutManager.session?.startDate ?? Date()
-        let schedule = MetricsTimelineSchedule( from: fromDate, isPaused: workoutManager.sessionState == .paused )
         return 
             HStack ( alignment: .top ) {
                 VStack ( alignment: .leading ) {
                     Text("Current attempt")
                         .bold()
                         .opacity(0.4)
-                    TimelineView( schedule ) { context in 
-                        List {
-                            Section {
-                                Group {
-                                    LabeledContent("Heart rate", value: workoutManager.workoutValues.heartRate, format: .number.precision(.fractionLength(0)))
-                                    LabeledContent("Calories burned", value: workoutManager.workoutValues.activeEnergyBurned, format: .number.precision(.fractionLength(0)))
-                                }
-                            } header: {
-                                ElapsedTimeView(elapsedTime: workoutTimeInterval(context.date), showSubseconds: context.cadence == .live)
-                            } footer: {
-                                VStack {
-                                    Spacer(minLength: 40)
-                                    HStack {
-                                        Button {
-                                            if let session = workoutManager.session {
-                                                workoutManager.sessionState == .running ? session.pause() : session.resume()
-                                            }
-                                        } label: {
-                                            let title = workoutManager.sessionState == .running ? "Pause" : "Resume"
-                                            let systemImage = workoutManager.sessionState == .running ? "pause" : "play"
-                                            Image(systemName: systemImage)
-                                            Text(title)
-                                        }
-                                        .disabled(!workoutManager.sessionState.isActive)
-                                        
-                                        Button {
-                                            workoutManager.session?.stopActivity(with: .now )
-                                        } label: {
-                                            Image(systemName: "xmark")
-                                            Text("End")
-                                        }
-                                        .tint(.green)
-                                        .disabled(!workoutManager.sessionState.isActive)
-                                        
-                                        Spacer()
-                                    }
-                                    .buttonStyle(.bordered)
-                                }
-                            }
-                        }
-                    }
+                    StatisticsView(audioPlayer: $audioPlayer)
                     Spacer()
                 }
                 .padding()
                 .background (
                     Color(.systemGray6)
                 )
-//                .clipShape (
-//                    RoundedRectangle(
-//                        cornerRadius: UIConfig.CornerRadiuses.large
-//                    )
-//                )
+                .clipShape (
+                    RoundedRectangle(
+                        cornerRadius: UIConfig.CornerRadiuses.large
+                    )
+                )
+        }
+    }
+}
+
+struct StatisticsView : View {
+    @Binding var audioPlayer : AudioPlayer
+    @Environment(WorkoutManager.self) var workoutManager : WorkoutManager
+    
+    @MainActor private func workoutTimeInterval(_ contextDate: Date) -> TimeInterval {
+        var timeInterval = workoutManager.elapsedTimeInterval
+        if workoutManager.sessionState == .running {
+            if let referenceContextDate = workoutManager.contextDate {
+                timeInterval += (contextDate.timeIntervalSinceReferenceDate - referenceContextDate.timeIntervalSinceReferenceDate)
+            } else {
+                workoutManager.contextDate = contextDate
+            }
+        } else {
+            var date = contextDate
+            date.addTimeInterval(workoutManager.elapsedTimeInterval)
+            timeInterval = date.timeIntervalSinceReferenceDate - contextDate.timeIntervalSinceReferenceDate
+            workoutManager.contextDate = nil
+        }
+        return timeInterval
+    }
+    
+    var body : some View {
+        let fromDate = workoutManager.session?.startDate ?? Date()
+        let schedule = MetricsTimelineSchedule( from: fromDate, isPaused: workoutManager.sessionState == .paused )
+        
+        TimelineView( schedule ) { context in 
+            Group {
+                Section {
+                    Group {
+                        LabeledContent("Heart rate", value: workoutManager.workoutValues.heartRate, format: .number.precision(.fractionLength(0)))
+                        LabeledContent("Calories burned", value: workoutManager.workoutValues.activeEnergyBurned, format: .number.precision(.fractionLength(0)))
+                    }
+                } header: {
+                    ElapsedTimeView(elapsedTime: workoutTimeInterval(context.date), showSubseconds: context.cadence == .live)
+                        .font(.title)
+                        .bold()
+                        .padding(UIConfig.Paddings.normal)
+                } footer: {                    
+                    return VStack {
+                        Spacer(minLength: 40)
+                        HStack {
+                            Button {
+                                if let session = workoutManager.session {
+                                    workoutManager.sessionState == .running ? session.pause() : session.resume()
+                                }
+                            } label: {
+                                let title = workoutManager.sessionState == .running ? "Pause" : "Resume"
+                                let systemImage = workoutManager.sessionState == .running ? "pause" : "play"
+                                Image(systemName: systemImage)
+                                Text(title)
+                            }
+                                .disabled(!workoutManager.sessionState.isActive)
+
+                            Button {
+                                workoutManager.session?.stopActivity(with: .now )
+                                
+                                // here insert attempt object to SwiftData
+                            } label: {
+                                Image(systemName: "xmark")
+                                Text("End")
+                            }
+                                .tint(.green)
+                                .disabled(!workoutManager.sessionState.isActive)
+
+                            Spacer()
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                }
+            }
         }
     }
 }
 
 struct AttemptSidebar : View {
+    @Binding var audioPlayer : AudioPlayer
     @Environment(WorkoutManager.self) var workoutManager : WorkoutManager
     
     var body : some View {
-        let fromDate = workoutManager.session?.startDate ?? Date()
-        let schedule = MetricsTimelineSchedule( from: fromDate, isPaused: workoutManager.sessionState == .paused )
         HStack {
             VStack ( alignment: .leading, spacing: UIConfig.Spacings.huge ) {
                 VStack ( alignment: .leading ) {
                     Text("Current attempt")
                         .bold()
                         .opacity(0.4)
-                    TimelineView( schedule ) { context in 
-                        List {
-                            Section {
-                                Group {
-                                    LabeledContent("Heart rate", value: workoutManager.workoutValues.heartRate, format: .number.precision(.fractionLength(0)))
-                                    LabeledContent("Calories burned", value: workoutManager.workoutValues.activeEnergyBurned, format: .number.precision(.fractionLength(0)))
-                                }
-                            } header: {
-                                ElapsedTimeView(elapsedTime: workoutTimeInterval(context.date), showSubseconds: context.cadence == .live)
-                            } footer: {
-                                VStack {
-                                    Spacer(minLength: 40)
-                                    HStack {
-                                        Button {
-                                            if let session = workoutManager.session {
-                                                workoutManager.sessionState == .running ? session.pause() : session.resume()
-                                            }
-                                        } label: {
-                                            let title = workoutManager.sessionState == .running ? "Pause" : "Resume"
-                                            let systemImage = workoutManager.sessionState == .running ? "pause" : "play"
-                                            Image(systemName: systemImage)
-                                            Text(title)
-                                        }
-                                        .disabled(!workoutManager.sessionState.isActive)
-
-                                        Button {
-                                            workoutManager.session?.stopActivity(with: .now )
-                                        } label: {
-                                            Image(systemName: "xmark")
-                                            Text("End")
-                                        }
-                                        .tint(.green)
-                                        .disabled(!workoutManager.sessionState.isActive)
-
-                                        Spacer()
-                                    }
-                                    .buttonStyle(.bordered)
-                                }
-                            }
-                        }
-                    }
+                    StatisticsView(audioPlayer: $audioPlayer)
                 }
                 
                 if ( AppConfig.debug ) {
@@ -549,44 +549,6 @@ struct AttemptSidebar : View {
                 maxWidth: UIConfig.SidebarSizes.huge
             )
             .background( Color(.systemGray6) )
-    }
-}
-
-extension AttemptSidebar {
-    @MainActor private func workoutTimeInterval(_ contextDate: Date) -> TimeInterval {
-        var timeInterval = workoutManager.elapsedTimeInterval
-        if workoutManager.sessionState == .running {
-            if let referenceContextDate = workoutManager.contextDate {
-                timeInterval += (contextDate.timeIntervalSinceReferenceDate - referenceContextDate.timeIntervalSinceReferenceDate)
-            } else {
-                workoutManager.contextDate = contextDate
-            }
-        } else {
-            var date = contextDate
-            date.addTimeInterval(workoutManager.elapsedTimeInterval)
-            timeInterval = date.timeIntervalSinceReferenceDate - contextDate.timeIntervalSinceReferenceDate
-            workoutManager.contextDate = nil
-        }
-        return timeInterval
-    }
-}
-    
-extension AttemptCard {
-    @MainActor private func workoutTimeInterval(_ contextDate: Date) -> TimeInterval {
-        var timeInterval = workoutManager.elapsedTimeInterval
-        if workoutManager.sessionState == .running {
-            if let referenceContextDate = workoutManager.contextDate {
-                timeInterval += (contextDate.timeIntervalSinceReferenceDate - referenceContextDate.timeIntervalSinceReferenceDate)
-            } else {
-                workoutManager.contextDate = contextDate
-            }
-        } else {
-            var date = contextDate
-            date.addTimeInterval(workoutManager.elapsedTimeInterval)
-            timeInterval = date.timeIntervalSinceReferenceDate - contextDate.timeIntervalSinceReferenceDate
-            workoutManager.contextDate = nil
-        }
-        return timeInterval
     }
 }
 

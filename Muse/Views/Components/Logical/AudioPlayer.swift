@@ -13,9 +13,9 @@ import Observation
     private var url            : URL?
     
     /* Mutating variables that are used by this component for various purposes */
-    var seekTime         : TimeInterval = 0
-    var duration         : TimeInterval = 0
-    var playbackSpeed    : Float        = 1.0 {
+    var seekTime           : TimeInterval = 0
+    var duration           : TimeInterval = 0
+    var playbackSpeed      : Float        = 1.0 {
         didSet {
             guard ( playbackSpeed >= 0.5 && playbackSpeed <= 2.0 ) else {
                 playbackSpeed = oldValue
@@ -31,8 +31,9 @@ import Observation
             }
         }
     }
-    var isPlaying        : Bool         = false
-    var audioPlayerCycle : Timer?
+    var isPlaying          : Bool         = false
+    var hasFinishedPlaying : Bool         = false
+    var audioPlayerCycle   : Timer?
     
     /* Constants */
     let audioPlayerClockSpeed : TimeInterval = 0.1
@@ -53,6 +54,7 @@ import Observation
             self?.isPlaying = false
             
             self?.url?.stopAccessingSecurityScopedResource()
+            self?.hasFinishedPlaying = true
         }
         
         do {

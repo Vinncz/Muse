@@ -1,18 +1,12 @@
-//
-//  AppDelegate.swift
-//  Muse Watch App
-//
-//  Created by Vin on 26/05/24.
-//
-
-import Foundation
+import os
 import HealthKit
 import SwiftUI
 import WatchKit
 
-class AppDelegate : NSObject, WKApplicationDelegate {
+class MuseAppDelegate: NSObject, WKApplicationDelegate {
     
     func handle ( _ workoutConfiguration: HKWorkoutConfiguration ) {
+        debug("Watch has been woken up. Begin trying to start workout.")
         Task {
             do {
                 WorkoutManager.instance.resetWorkout()
@@ -25,3 +19,5 @@ class AppDelegate : NSObject, WKApplicationDelegate {
     }
     
 }
+
+

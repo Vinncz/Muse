@@ -11,15 +11,25 @@ extension WorkoutManager {
     
     /** Begins a workout on [Watchful Muse] */
     func startWatchWorkout ( ) async throws {
+        debug("\(#function): Watch has been prompted to start workout")
+        
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = .other
         configuration.locationType = AppConfig.workoutLocation
         
-        try await healthStore.startWatchApp( toHandle: configuration )
+        debug("In a moment, will begin waking up the watch app.")
+        
+        do {
+            try await healthStore.startWatchApp( toHandle: configuration )
+        } catch let error {
+            debug("\(#function): Failed to start watch app. \(error)")
+        }
     }
     
     /** Enables [Muse on iOS] to begin mirroring the watch's workout in the background  */
     func retrieveRemoteSession ( ) {
+        debug("Retrieve remote session was called")
+        
         healthStore.workoutSessionMirroringStartHandler = { mirroredSession in
             Task { @MainActor in
                 self.resetWorkout()

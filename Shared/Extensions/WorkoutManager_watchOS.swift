@@ -22,6 +22,8 @@ extension WorkoutManager {
     
     /** Enables [Watchful Muse] to start the workout, there and then */
     func startWorkout ( workoutConfiguration: HKWorkoutConfiguration ) async throws {
+        debug("\(#function): Started workout")
+        
         session = try HKWorkoutSession( healthStore: healthStore, configuration: workoutConfiguration )
         builder = session?.associatedWorkoutBuilder()
         
@@ -36,7 +38,18 @@ extension WorkoutManager {
         let startDate = Date()
         session?.startActivity(with: startDate)
         
-        try await builder?.beginCollection(at: startDate)
+        do {
+            try await session?.startMirroringToCompanionDevice()
+        }
+        catch let error {
+            debug("Encountered a problem while mirroring the workout. \(error)")
+        }
+        
+        do {
+            try await builder?.beginCollection(at: startDate)
+        } catch let error {
+            debug("Encountered a problem while starting the workout. \(error)")
+        }
     }
     
     /** The function which handles the data sent from [Muse on iOS] */
@@ -72,6 +85,8 @@ extension WorkoutManager {
                 try await builder?.endCollection(at: elapsedTime)
                 finishedWorkout = try await builder?.finishWorkout()
                 session?.end()
+                
+                // here insert attempt object to SwiftData
             } catch {
                 debug("Failed to end workout: \(error))")
                 return
@@ -124,7 +139,7 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
         let archivedData = try? NSKeyedArchiver.archivedData(withRootObject: statistics, requiringSecureCoding: true)
         
         guard let archivedData = archivedData, !archivedData.isEmpty else {
-            debug("Encoded cycling data is empty -- aborting the attempt to send data")
+            debug("Encoded data is empty -- aborting the attempt to send data")
             
             return
         }

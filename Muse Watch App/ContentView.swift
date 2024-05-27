@@ -29,13 +29,18 @@ struct ContentView: View {
 
                 if Int(selection) == 0 {
                     HStack {
-                        Text("Workout is present: \(workoutManager.workout != nil)")
-                    }
-                        .transition(.move(edge: self.scrollDir == .up ? .top : .bottom))
-                    
-                } else if Int(selection) == 1 {
-                    PageView (
-                        content: AnyView (
+                        VStack {
+                            Button {
+                                startWorkout()
+                            } label: {
+                                VStack {
+                                    Image(systemName: "play")
+                                    Text("Start")
+                                }
+                            }
+                                .disabled(workoutManager.sessionState.isActive)
+                                .tint(.green)
+                            
                             Button {
                                 workoutManager.sessionState == .running ? workoutManager.session?.pause() : workoutManager.session?.resume()
                             } label: {
@@ -48,13 +53,7 @@ struct ContentView: View {
                             }
                                 .disabled(!workoutManager.sessionState.isActive)
                                 .tint(.blue)
-                        )
-                    )
-                        .transition(.move(edge: self.scrollDir == .up ? .top : .bottom))
-                    
-                } else if Int(selection) == 2 {
-                    PageView (
-                        content: AnyView (
+                            
                             Button {
                                 workoutManager.session?.stopActivity(with: .now)
                             } label: {
@@ -65,6 +64,22 @@ struct ContentView: View {
                             }
                                 .tint(.red)
                                 .disabled(!workoutManager.sessionState.isActive)
+                        }
+                    }
+                        .transition(.move(edge: self.scrollDir == .up ? .top : .bottom))
+                    
+                } else if Int(selection) == 1 {
+                    PageView (
+                        content: AnyView (
+                            Text( workoutManager.sessionState.isActive ? "Workout is ongoing" : "No workout is running" )
+                        )
+                    )
+                        .transition(.move(edge: self.scrollDir == .up ? .top : .bottom))
+                    
+                } else if Int(selection) == 2 {
+                    PageView (
+                        content: AnyView (
+                            Text("Page 3")
                         )
                     )
                         .transition(.move(edge: self.scrollDir == .up ? .top : .bottom))
@@ -75,14 +90,17 @@ struct ContentView: View {
             
             Spacer()
         }
+        .onAppear() {
+            workoutManager.requestAuthorization()
+        }
     }
     
     private func startWorkout() {
         Task {
             do {
                 let configuration = HKWorkoutConfiguration()
-                configuration.activityType = .cycling
-                configuration.locationType = .outdoor
+                configuration.activityType = .other
+                configuration.locationType = AppConfig.workoutLocation
                 try await workoutManager.startWorkout(workoutConfiguration: configuration)
                 debug("tried to start the workout")
             } catch {

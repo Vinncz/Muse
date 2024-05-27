@@ -62,6 +62,8 @@
 		2026D0172C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D0152C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift */; };
 		2026D01B2C03B4F700FE7CC0 /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D01A2C03B4F700FE7CC0 /* ElapsedTimeView.swift */; };
 		2026D01C2C03B4F700FE7CC0 /* ElapsedTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D01A2C03B4F700FE7CC0 /* ElapsedTimeView.swift */; };
+		2026D0202C0466D800FE7CC0 /* DetailedAttempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D01F2C0466D800FE7CC0 /* DetailedAttempt.swift */; };
+		2026D0222C04676A00FE7CC0 /* PreviouslyAttempted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2026D0212C04676A00FE7CC0 /* PreviouslyAttempted.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +156,9 @@
 		20211CB82C02399C00623A4D /* exWorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = exWorkoutManager.swift; sourceTree = "<group>"; };
 		2026D0152C03B42A00FE7CC0 /* MetricsTimelineSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTimelineSchedule.swift; sourceTree = "<group>"; };
 		2026D01A2C03B4F700FE7CC0 /* ElapsedTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElapsedTimeView.swift; sourceTree = "<group>"; };
+		2026D01F2C0466D800FE7CC0 /* DetailedAttempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedAttempt.swift; sourceTree = "<group>"; };
+		2026D0212C04676A00FE7CC0 /* PreviouslyAttempted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviouslyAttempted.swift; sourceTree = "<group>"; };
+		2026D0232C046B3B00FE7CC0 /* Muse-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Muse-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,14 +229,15 @@
 		20211C242C00DFA000623A4D /* Muse Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				2026D0232C046B3B00FE7CC0 /* Muse-Watch-App-Info.plist */,
 				20211C7E2C01108D00623A4D /* README.md */,
 				20211C792C010AB500623A4D /* Raws */,
 				20211C382C00E03100623A4D /* Muse Watch AppRelease.entitlements */,
+				20151EB22C0378A200EA8A25 /* AppDelegate.swift */,
 				20211C252C00DFA000623A4D /* MuseApp.swift */,
 				20211C272C00DFA000623A4D /* ContentView.swift */,
 				20211C292C00DFA100623A4D /* Assets.xcassets */,
 				20211C2B2C00DFA100623A4D /* Preview Content */,
-				20151EB22C0378A200EA8A25 /* AppDelegate.swift */,
 			);
 			path = "Muse Watch App";
 			sourceTree = "<group>";
@@ -301,6 +307,8 @@
 				20211C702C00EA2000623A4D /* README.md */,
 				20211C462C00E54A00623A4D /* MediaPlayback.swift */,
 				20211C482C00E55600623A4D /* Library.swift */,
+				2026D01F2C0466D800FE7CC0 /* DetailedAttempt.swift */,
+				2026D0212C04676A00FE7CC0 /* PreviouslyAttempted.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -567,6 +575,7 @@
 				20211C9B2C01DB7A00623A4D /* HKWorkout.swift in Sources */,
 				20211C8F2C01DA7300623A4D /* UIConfig.swift in Sources */,
 				20211C5B2C00E60200623A4D /* Music.swift in Sources */,
+				2026D0202C0466D800FE7CC0 /* DetailedAttempt.swift in Sources */,
 				20211C502C00E59400623A4D /* ArtworkSquare.swift in Sources */,
 				20211C522C00E5AA00623A4D /* AudioPlayer.swift in Sources */,
 				20211C5D2C00E60E00623A4D /* Item.swift in Sources */,
@@ -585,6 +594,7 @@
 				20211CAB2C01E34300623A4D /* Bundle.swift in Sources */,
 				20211CA82C01E32300623A4D /* Debug.swift in Sources */,
 				20211C8B2C01DA3000623A4D /* WorkoutManager.swift in Sources */,
+				2026D0222C04676A00FE7CC0 /* PreviouslyAttempted.swift in Sources */,
 				20211C692C00E6A100623A4D /* Page.swift in Sources */,
 				20211C572C00E5DC00623A4D /* SectionHeader.swift in Sources */,
 				20211C4B2C00E56B00623A4D /* MusicEntry.swift in Sources */,
@@ -758,7 +768,10 @@
 				DEVELOPMENT_TEAM = STU45DAFT2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Muse-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Muse;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Muse would like to access your health data";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Muse would like to access your health data";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.vinapp.Muse;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -790,7 +803,10 @@
 				DEVELOPMENT_TEAM = STU45DAFT2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Muse-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Muse;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Muse would like to access your health data";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Muse would like to access your health data";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.vinapp.Muse;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -40,7 +40,7 @@ extension WorkoutManager {
                 workoutValues.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
                 
             case HKQuantityType.quantityType( forIdentifier: .activeEnergyBurned ):
-                let energyUnit = HKUnit.kilocalorie()
+                let energyUnit = HKUnit.smallCalorie()
                 workoutValues.activeEnergyBurned = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
                 
             default:

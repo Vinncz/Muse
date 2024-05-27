@@ -48,9 +48,9 @@ struct ContentView: View {
             view: Library() 
         ),
         Page ( 
-            name: "InitView", 
-            icon: "number", 
-            view: initView() 
+            name: "Previously Attempted", 
+            icon: "arrow.circlepath", 
+            view: PreviouslyAttempted()
         )
     ]
     
